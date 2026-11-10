@@ -1,24 +1,22 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>O Espelho do Teto — Diagnóstico Psicológico</title>
+  <title>O Espelho do Teto — Diagnóstico</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #090B10;
       --card-bg: #11141D;
-      --text-main: #E2E8F0;
+      --text-main: #F1F5F9;
       --text-muted: #94A3B8;
       --amber: #F59E0B;
-      --amber-glow: rgba(245, 158, 11, 0.2);
-      --blue-shadow: #1E293B;
+      --amber-glow: rgba(245, 158, 11, 0.15);
       --border: #1E293B;
     }
-
 
     * {
       box-sizing: border-box;
@@ -27,7 +25,6 @@
       font-family: 'Inter', sans-serif;
     }
 
-
     body {
       background-color: var(--bg);
       color: var(--text-main);
@@ -35,43 +32,37 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 16px;
     }
-
 
     .container {
       width: 100%;
-      max-width: 600px;
+      max-width: 480px;
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 32px 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 40px var(--blue-shadow);
-      position: relative;
+      padding: 28px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
-
 
     header {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
-
 
     header h1 {
       font-family: 'Cinzel', serif;
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       color: var(--amber);
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       margin-bottom: 6px;
       text-transform: uppercase;
     }
-
 
     header p {
       font-size: 0.85rem;
       color: var(--text-muted);
     }
-
 
     .progress-bar {
       height: 4px;
@@ -81,7 +72,6 @@
       overflow: hidden;
     }
 
-
     .progress-fill {
       height: 100%;
       background: var(--amber);
@@ -89,48 +79,43 @@
       transition: width 0.3s ease;
     }
 
-
     .question-title {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 1.05rem;
+      font-weight: 500;
       line-height: 1.5;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       color: var(--text-main);
+      text-align: center;
     }
-
 
     .options {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
-
     .option-btn {
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 14px 16px;
-      border-radius: 10px;
-      text-align: left;
-      font-size: 0.95rem;
+      padding: 18px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 0.95rem; /* Ajustado para leitura confortável no mobile */
       line-height: 1.4;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-
-    .option-btn:hover {
+    .option-btn:active, .option-btn:hover {
       border-color: var(--amber);
       background: var(--amber-glow);
     }
-
 
     .result-card {
       display: none;
       text-align: left;
     }
-
 
     .result-tag {
       display: inline-block;
@@ -141,72 +126,60 @@
       margin-bottom: 8px;
     }
 
-
     .result-title {
       font-family: 'Cinzel', serif;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       color: #FFF;
       margin-bottom: 16px;
     }
 
-
     .result-section {
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
-
     .result-section h3 {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       color: var(--amber);
       margin-bottom: 4px;
+      letter-spacing: 1px;
     }
-
 
     .result-section p {
-      font-size: 0.95rem;
+      font-size: 0.95rem; /* 16px equivalente legível */
       color: var(--text-main);
-      line-height: 1.6;
+      line-height: 1.5;
     }
-
 
     .copy-btn {
       width: 100%;
-      margin-top: 20px;
-      padding: 14px;
+      margin-top: 16px;
+      padding: 16px;
       background: var(--amber);
       color: #000;
       border: none;
       border-radius: 10px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       cursor: pointer;
-      transition: opacity 0.2s ease;
     }
-
-
-    .copy-btn:hover {
-      opacity: 0.9;
-    }
-
 
     footer {
       margin-top: 24px;
       text-align: center;
       font-size: 0.75rem;
       color: var(--text-muted);
+      letter-spacing: 1px;
     }
   </style>
 </head>
 <body>
 
-
   <div class="container">
     <header>
       <h1>O Espelho do Teto</h1>
-      <p>Diagnóstico de Mecanismo de Defesa & Lucidez</p>
+      <p>Escolha por impulso. Sem pensar.</p>
     </header>
-
 
     <div id="quiz-screen">
       <div class="progress-bar">
@@ -216,9 +189,8 @@
       <div class="options" id="options-container"></div>
     </div>
 
-
     <div class="result-card" id="result-screen">
-      <span class="result-tag" id="res-tag">Mecanismo Revelado</span>
+      <span class="result-tag" id="res-tag">Mecanismo Oculto Revelado</span>
       <h2 class="result-title" id="res-title"></h2>
       
       <div class="result-section">
@@ -226,119 +198,93 @@
         <p id="res-diag"></p>
       </div>
 
-
       <div class="result-section">
         <h3>O Espelhamento</h3>
         <p id="res-espelho"></p>
       </div>
-
 
       <div class="result-section">
         <h3>A Convocação</h3>
         <p id="res-convocacao"></p>
       </div>
 
-
-      <button class="copy-btn" onclick="copyResult()">Copiar Diagnóstico para Print/Story</button>
+      <button class="copy-btn" onclick="copyResult()">Copiar Resultado para os Stories</button>
     </div>
 
-
     <footer>
-      @oobservadordeteto
+      @observadordeteto
     </footer>
   </div>
-
 
   <script>
     const questions = [
       {
-        q: "1. Você apaga a luz do quarto e fica a sós no escuro. Qual é a primeira coisa que acontece na sua cabeça?",
+        q: "Diante de um silêncio prolongado e repentino:",
         options: [
-          { text: "Procuro uma explicação lógica para tudo o que senti no dia, tentando organizar as emoções como dados.", type: "A" },
-          { text: "Pego o celular imediatamente e fico rolando a tela até o olho pesar, só para não encarar o silêncio.", type: "B" },
-          { text: "Começo a repassar a lista de tarefas de amanhã e a projetar mentalmente cada cenário da semana.", type: "C" },
-          { text: "Encaro o teto e percebo exatamente o que está errado na minha vida, mas não sinto forças para mover um dedo.", type: "D" }
+          { text: "Tento decodificar o motivo lógico daquele vazio.", type: "A" },
+          { text: "Ligo qualquer som ou abro uma tela para preencher o espaço.", type: "B" },
+          { text: "Calculo mentalmente o que preciso resolver em seguida.", type: "C" },
+          { text: "Apenas observo o tempo passar, estático.", type: "D" }
         ]
       },
       {
-        q: "2. Algo dá errado no seu dia e foge completamente do seu controle. Como você reage por dentro?",
+        q: "Quando o plano desaba e o controle escapa das mãos:",
         options: [
-          { text: "Desligo o lado emocional na hora e busco uma solução fria, prática e analítica para resolver o problema.", type: "A" },
-          { text: "Procuro uma fuga rápida — comida, vídeos barulhentos ou redes sociais — para fazer o incômodo sumir.", type: "B" },
-          { text: "Fico irritado com a bagunça do imprevisível e tento reorganizar tudo ao redor para recuperar o domínio.", type: "C" },
-          { text: "Entendo perfeitamente o motivo do erro e vejo o impacto de tudo, mas continuo parado assistindo às consequências.", type: "D" }
+          { text: "Isolo o sentimento e foco puramente na correção técnica.", type: "A" },
+          { text: "Busco um alívio imediato para esquecer o problema.", type: "B" },
+          { text: "Reorganizo freneticamente todas as variáveis ao redor.", type: "C" },
+          { text: "Enxergo a falha completa, mas continuo onde estou.", type: "D" }
         ]
       },
       {
-        q: "3. Você ganha duas horas livres no meio da tarde sem nenhuma obrigação. O que você faz?",
+        q: "O peso invisível do dia acumulou no peito. O seu reflexo imediato é:",
         options: [
-          { text: "Uso o tempo de forma eficiente para organizar arquivos, estudar algo prático ou resolver pendências lógicas.", type: "A" },
-          { text: "Deixo a TV ligada no fundo enquanto mexo no celular, preenchendo o vazio para não sentir o peso do tempo.", type: "B" },
-          { text: "Uso cada minuto para planejar os próximos meses, desenhar metas ou estruturar novos projetos futuros.", type: "C" },
-          { text: "Passo o tempo todo refletindo sobre quem eu me tornei e o que deveria mudar, mas não coloco nada em prática.", type: "D" }
+          { text: "Tratar a dor como um dado estatístico a ser resolvido.", type: "A" },
+          { text: "Fugir para o piloto automático das distrações digitais.", type: "B" },
+          { text: "Antecipar cenários futuros para tentar me blindar.", type: "C" },
+          { text: "Assistir à própria exaustão como um espectador cansado.", type: "D" }
         ]
       },
       {
-        q: "4. Você precisa tomar uma decisão importante que vai mudar a sua rotina. Qual é o seu movimento?",
+        q: "Ao encarar o próprio reflexo no escuro por dez segundos:",
         options: [
-          { text: "Faço uma lista fria de prós e contras e decido puramente com a razão, ignorando totalmente o que sinto.", type: "A" },
-          { text: "Vou empurrando a escolha com a barriga, esperando que o tempo resolva ou que a vida decida por mim.", type: "B" },
-          { text: "Tento prever todas as variáveis possíveis e crio planos de emergência antes de dar qualquer passo.", type: "C" },
-          { text: "Enxergo com clareza cristalina qual seria a melhor escolha, mas paraliso na hora de agir e continuo no mesmo lugar.", type: "D" }
-        ]
-      },
-      {
-        q: "5. Um aperto desconfortável surge no seu peito sem aviso. Como você lida com essa sensação?",
-        options: [
-          { text: "Tento dissecá-la racionalmente: analiso a causa exata e trato a dor como um defeito técnico a ser corrigido.", type: "A" },
-          { text: "Entro no modo automático e me ocupo com qualquer tarefa corrida para nem notar que a sensação está ali.", type: "B" },
-          { text: "Tento antecipar o que pode acontecer de ruim se esse sentimento continuar e busco formas de me proteger.", type: "C" },
-          { text: "Observo a minha própria angústia de fora, como um espectador distante da minha dor, sem fazer nada para sair dela.", type: "D" }
-        ]
-      },
-      {
-        q: "6. Quando você olha no espelho e encara a sua própria imagem por alguns segundos, o que passa pela sua mente?",
-        options: [
-          { text: "Enxergo um conjunto de hábitos e engrenagens que precisam ser ajustados para funcionar com mais eficiência.", type: "A" },
-          { text: "Desvio o olhar rapidamente e procuro qualquer outra coisa no ambiente para me distrair.", type: "B" },
-          { text: "Penso em quem eu preciso me tornar nos próximos anos e em tudo o que ainda preciso construir e controlar.", type: "C" },
-          { text: "Vejo com clareza o abismo entre quem eu gostaria de ser e quem estou sendo hoje, mas continuo estático.", type: "D" }
+          { text: "Vejo engrenagens que precisam de ajuste funcional.", type: "A" },
+          { text: "Desvio o olhar rapidamente para o primeiro estímulo.", type: "B" },
+          { text: "Penso nas metas que preciso cumprir nos próximos anos.", type: "C" },
+          { text: "Reconheço a estagnação exata em que me coloquei.", type: "D" }
         ]
       }
     ];
-
 
     const archetypes = {
       A: {
         title: "O CIRÚRGICO (A Lâmina)",
         diag: "Você racionaliza a vida para não precisar senti-la. Transforma angústias em equações lógicas porque tentar entender o motivo de uma dor parece mais seguro do que ter a coragem de ser vulnerável.",
         espelho: "Analisar o seu problema não é o mesmo que curá-lo. Sua inteligência virou um esconderijo refinado para o medo de perder o controle.",
-        convocacao: "Pare de buscar justificativas lógicas para o que sente. Da próxima vez que um incômodo surgir, apenas suporte o peso dele por dois minutos em silêncio sem tentar explicá-lo."
+        convocacao: "Pare de buscar justificativas lógicas para o que sente. Suporte o peso do momento por dois minutos em silêncio sem tentar explicá-lo."
       },
       B: {
         title: "O ANESTESIADO (O Nevoeiro)",
-        diag: "O seu maior pavor é o silêncio. Você mantém a mente ocupada 24 horas por dia com telas, ruídos e tarefas rasas para garantir que nunca vai precisar encarar o abismo de estar a sós consigo mesmo.",
+        diag: "O seu maior pavor é o silêncio. Você mantém a mente ocupada o tempo todo com telas, ruídos e estímulos rasos para garantir que nunca vai precisar encarar o abismo de estar a sós consigo mesmo.",
         espelho: "Você não está cansado do mundo; está exausto de rodar o piloto automático para anestesiar a própria presença.",
-        convocacao: "Deixe o celular em outro cômodo hoje à noite. Encare o escuro do teto em silêncio absoluto até o sono vir, sem fugir para nenhum estímulo visual."
+        convocacao: "Deixe o celular em outro cômodo hoje. Encare o teto em silêncio absoluto até o sono vir, sem fugir para nenhum estímulo visual."
       },
       C: {
         title: "O ARQUITETO (A Estrutura)",
-        diag: "Sua cabeça vive dez passos à frente, criando cenários e planos de emergência para coisas que nem aconteceram. Você acredita que, se planejar o suficiente, nada poderá te ferir.",
-        espelho: "O seu perfeccionismo não é busca por excelência; é só o seu ego aterrorizado com a possibilidade de falhar. O excesso de preparação é uma desculpa elegante para não agir.",
-        convocacao: "Escolha a decisão ou projeto que você está adiando há meses e dê o primeiro passo hoje — da forma mais imperfeita e simples possível."
+        diag: "Sua cabeça vive passos à frente, criando cenários e planos de emergência para coisas que nem aconteceram. Você acredita que, se planejar o suficiente, nada poderá te ferir.",
+        espelho: "O seu perfeccionismo não é busca por excelência; é o seu ego aterrorizado com a falha. O excesso de preparação é uma desculpa elegante para não agir.",
+        convocacao: "Escolha a decisão que você está adiando há meses e dê o primeiro passo hoje de forma imperfeita."
       },
       D: {
         title: "O OBSERVADOR (A Testemunha)",
         diag: "Você enxerga com clareza absoluta onde está errando e entende os seus padrões destrutivos como ninguém. Porém, usa essa lucidez como uma cadeira de balanço.",
         espelho: "Você virou um espectador da própria existência. Lucidez sem ação não é sabedoria; é só covardia consciente.",
-        convocacao: "Pare de analisar a sua estagnação. Escolha uma única atitude prática que quebre a sua rotina hoje e execute-a antes que a sua mente tente te convencer do contrário."
+        convocacao: "Pare de analisar a estagnação. Escolha uma única atitude prática que quebre a sua rotina hoje e execute-a imediatamente."
       }
     };
 
-
     let currentQ = 0;
     const scores = { A: 0, B: 0, C: 0, D: 0 };
-
 
     function loadQuestion() {
       const q = questions[currentQ];
@@ -346,7 +292,6 @@
       
       const container = document.getElementById('options-container');
       container.innerHTML = '';
-
 
       q.options.forEach(opt => {
         const btn = document.createElement('button');
@@ -356,16 +301,13 @@
         container.appendChild(btn);
       });
 
-
       const progressPercent = ((currentQ) / questions.length) * 100;
       document.getElementById('progress').style.width = `${progressPercent}%`;
     }
 
-
     function selectOption(type) {
       scores[type]++;
       currentQ++;
-
 
       if (currentQ < questions.length) {
         loadQuestion();
@@ -374,14 +316,11 @@
       }
     }
 
-
     function showResult() {
       document.getElementById('quiz-screen').style.display = 'none';
       const resultScreen = document.getElementById('result-screen');
       resultScreen.style.display = 'block';
 
-
-      // Determina o arquétipo vencedor
       let winner = 'A';
       let maxScore = -1;
       for (const [type, score] of Object.entries(scores)) {
@@ -391,7 +330,6 @@
         }
       }
 
-
       const res = archetypes[winner];
       document.getElementById('res-title').innerText = res.title;
       document.getElementById('res-diag').innerText = res.diag;
@@ -399,17 +337,15 @@
       document.getElementById('res-convocacao').innerText = res.convocacao;
     }
 
-
     function copyResult() {
       const title = document.getElementById('res-title').innerText;
       const espelho = document.getElementById('res-espelho').innerText;
-      const text = `Meu resultado no Espelho do Teto:\n\n${title}\n"${espelho}"\n\nDescubra o seu em: @oobservadordeteto`;
+      const text = `Meu resultado no Espelho do Teto:\n\n${title}\n"${espelho}"\n\nDescubra o seu em: @observadordeteto`;
       
       navigator.clipboard.writeText(text).then(() => {
-        alert('Resultado copiado! Agora você pode colar nos seus Stories ou enviar para alguém.');
+        alert('Resultado copiado! Cole direto nos seus Stories.');
       });
     }
-
 
     loadQuestion();
   </script>
