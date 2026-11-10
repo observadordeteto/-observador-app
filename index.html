@@ -443,4 +443,48 @@
         }
       }
 
-      final
+      finalArchetypeKey = winner;
+      const finalArchetype = archetypes[winner];
+      
+      document.getElementById('res-title').innerText = finalArchetype.title;
+      document.getElementById('res-poder').innerText = finalArchetype.poder;
+      document.getElementById('res-tendencia').innerText = finalArchetype.tendencia;
+      document.getElementById('res-conselho').innerText = finalArchetype.conselho;
+      
+      const imgElement = document.getElementById('result-card-img');
+      imgElement.src = finalArchetype.image;
+    }
+
+    async function shareCard() {
+      const finalArchetype = archetypes[finalArchetypeKey];
+      if (!finalArchetype) return;
+
+      try {
+        const response = await fetch(finalArchetype.image);
+        const blob = await response.blob();
+        const file = new File([blob], `${finalArchetypeKey}.jpg`, { type: blob.type });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: 'Meu Perfil — O Espelho do Teto',
+            text: 'Descubra o seu perfil em @observadordeteto'
+          });
+          return;
+        }
+      } catch (err) {
+        console.log('Share nativo por arquivo indisponível.');
+      }
+
+      const link = document.createElement('a');
+      link.href = finalArchetype.image;
+      link.target = '_blank';
+      link.download = 'meu-perfil-espelho.jpg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      alert('Card pronto! Pressione a imagem para salvá-la e postar nos seus Stories.');
+    }
+  </script>
+</body>
+</html>
