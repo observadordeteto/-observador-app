@@ -272,25 +272,24 @@
             }
         ];
 
-        // Caminhos explicitamente definidos com ./ para resolução correta no GitHub Pages
         const resultsData = {
             estrategico: {
-                image: "./resultado-estrategico.jpg",
+                image: "resultado-estrategico.jpg",
                 title: "Análise Profunda: O Estratégico",
                 text: "Sua mente opera em frequências frias e calculistas. Enquanto o mundo reage no impulso, você antecipa os movimentos antes mesmo do tabuleiro se mover. Sua maior força é a clareza absoluta sob pressão, enxergando padrões onde os outros veem apenas confusão."
             },
             intensivo: {
-                image: "./resultado-intensivo.jpg",
+                image: "resultado-intensivo.jpg",
                 title: "Análise Profunda: O Intensivo",
                 text: "Você não sabe viver na superfície. Sua energia consome o espaço e transforma o ritmo ao seu redor. O que para os outros é excesso, para você é apenas a voltagem natural da sua existência, movida a impulsos de alta frequência."
             },
             arquiteto: {
-                image: "./resultado-arquiteto.jpg",
+                image: "resultado-arquiteto.jpg",
                 title: "Análise Profunda: O Arquiteto",
                 text: "Suas mãos moldam o invisível. Você enxerga as estruturas do futuro e constrói pontes lógicas onde todos os outros veem apenas o caos. Nada acontece por acaso no seu reino mental; cada pilar é rigorosamente planejado."
             },
             observador: {
-                image: "./resultado-observador.jpg",
+                image: "resultado-observador.jpg",
                 title: "Análise Profunda: O Observador",
                 text: "Você habita o silêncio que antecede a revelação. Enquanto todos falam, você lê os entrelinhas, absorve o invisível e enxerga através das máscaras que a sociedade tenta vestir. Sua sabedoria reside na percepção sutil."
             }
@@ -339,14 +338,22 @@
             document.getElementById('screen-quiz').classList.remove('active');
             document.getElementById('screen-result').classList.add('active');
 
-            // Determinar arquétipo com desempate seguro
+            // Determinar o arquétipo vencedor
             finalArchetype = Object.keys(scores).reduce((a, b) => scores[a] >= scores[b] ? a : b);
             const data = resultsData[finalArchetype];
 
-            // Inserção dos dados
             const imgElement = document.getElementById('result-img');
-            imgElement.src = data.image;
             
+            // Caminho absoluto dinâmico para garantir compatibilidade total no GitHub Pages
+            const basePath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+            imgElement.src = basePath + data.image;
+
+            // Fallback caso ocorra falha de leitura direta
+            imgElement.onerror = function() {
+                this.src = data.image;
+            };
+
+            // Inserir textos aprofundados
             document.getElementById('analysis-title').innerText = data.title;
             document.getElementById('analysis-text').innerText = data.text;
         }
@@ -356,7 +363,7 @@
             try {
                 const response = await fetch(data.image);
                 const blob = await response.blob();
-                const file = new File([blob], `${finalArchetype}.jpg`, { type: 'image/jpeg' });
+                const file = new File([blob], `${finalArchetype}.jpg`, { type: blob.type });
 
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     await navigator.share({
@@ -371,11 +378,11 @@
                         url: window.location.href
                     });
                 } else {
-                    alert('Para postar nos Stories: Pressione a imagem por alguns segundos para salvar ou tire um print da tela.');
+                    alert('O compartilhamento nativo não é suportado neste navegador. Salve a imagem manualmente para postar nos Stories.');
                 }
             } catch (error) {
                 console.log('Erro ao compartilhar:', error);
-                alert('Tire um print da tela ou salve a imagem para compartilhar nos Stories!');
+                alert('Não foi possível compartilhar automaticamente. Você pode tirar um print ou salvar a imagem para postar.');
             }
         }
     </script>
