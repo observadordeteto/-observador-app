@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>O Espelho do Teto — Diagnóstico</title>
   
-  <!-- Meta Tags para Redes Sociais -->
   <meta property="og:title" content="O Espelho do Teto — Diagnóstico Comportamental">
   <meta property="og:description" content="Descubra o perfil secreto da sua mente e seu padrão comportamental.">
-  <meta property="og:image" content="https://observadordeteto.github.io/-observador-app/capa.png">
-  <meta property="og:url" content="https://observadordeteto.github.io/-observador-app/">
+  <meta property="og:image" content="capa.png">
+  <meta property="og:url" content="">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -332,35 +331,35 @@
       { text: "Tenho uma forte capacidade de observar os outros e entender o ambiente ao redor.", type: "D" }
     ];
 
-    // URLs absolutas corrigidas para o GitHub Pages do repositório -observador-app
+    // Caminhos relativos diretos (mesma pasta no GitHub Pages)
     const archetypes = {
       A: {
         title: "O ESTRATEGISTA (Mente Fria)",
         poder: "Você tem uma inteligência lógica afiada. Enquanto os outros se apavoram, você consegue manter a clareza e achar a solução certeira.",
         tendencia: "Sua mente é tão analítica que às vezes você pensa demais antes de sentir. Seu cérebro é um motor de alta precisão.",
         conselho: "Confie mais na sua intuição. Nem tudo precisa de uma explicação para dar certo.",
-        image: "https://observadordeteto.github.io/-observador-app/resultado-estrategico.jpg"
+        image: "resultado-estrategico.jpg"
       },
       B: {
         title: "O INTENSIVO (Foco e Ritmo)",
         poder: "Você absorve muita informação rápida e tem uma mente elétrica. Sua capacidade de se conectar com novidades é única.",
         tendencia: "Você gosta de manter sua mente em movimento contínuo para aproveitar o máximo da vida e do seu tempo.",
         conselho: "Crie pequenos momentos diários de silêncio para recarregar suas energias ao máximo.",
-        image: "https://observadordeteto.github.io/-observador-app/resultado-intensivo.jpg"
+        image: "resultado-intensivo.jpg"
       },
       C: {
         title: "O ARQUITETO (Visão de Futuro)",
         poder: "Você enxerga o cenário completo antes de todo mundo. Sua capacidade de planejar e proteger o que importa é incomparável.",
         tendencia: "Seu padrão de excelência é alto. Você se cobra para entregar sempre a melhor versão possível em tudo que faz.",
         conselho: "Celebre as pequenas vitórias pelo caminho, sem esperar apenas o resultado final.",
-        image: "https://observadordeteto.github.io/-observador-app/resultado-arquiteto.jpg"
+        image: "resultado-arquiteto.jpg"
       },
       D: {
         title: "O OBSERVADOR (Visão Profunda)",
         poder: "Você tem uma percepção humana raríssima. Consegue ler pessoas, ambientes e detalhes que quase ninguém nota.",
         tendencia: "Sua lucidez é enorme. Você prefere entender todo o mapa antes de dar o seu próximo grande salto.",
         conselho: "Transforme a sua grande clareza em ação imediata. O mundo precisa das suas ideias fora do papel.",
-        image: "https://observadordeteto.github.io/-observador-app/resultado-observador.jpg"
+        image: "resultado-observador.jpg"
       }
     };
 
@@ -433,10 +432,11 @@
       resultScreen.classList.add('fade-anim');
 
       let winner = 'A';
-      let maxScore = -1;
+      let maxScore - -1;
+      let maxVal = -1;
       for (const [type, score] of Object.entries(scores)) {
-        if (score > maxScore) {
-          maxScore = score;
+        if (score > maxVal) {
+          maxVal = score;
           winner = type;
         }
       }
@@ -449,16 +449,22 @@
       document.getElementById('res-tendencia').innerText = finalArchetype.tendencia;
       document.getElementById('res-conselho').innerText = finalArchetype.conselho;
       
-      document.getElementById('result-card-img').src = finalArchetype.image;
+      // Atribuição direta da imagem com fallback automático
+      const imgElement = document.getElementById('result-card-img');
+      imgElement.src = finalArchetype.image;
+      imgElement.onerror = function() {
+        // Se falhar o caminho direto, tenta com barra inicial
+        this.src = '/' + finalArchetype.image;
+      };
     }
 
-    // Compartilhamento robusto abrindo ou baixando a imagem diretamente para os Stories
+    // Função de compartilhamento e download otimizada para celulares
     async function shareCard() {
       const finalArchetype = archetypes[finalArchetypeKey];
       if (!finalArchetype) return;
 
       try {
-        const response = await fetch(finalArchetype.image, { mode: 'cors' });
+        const response = await fetch(finalArchetype.image);
         const blob = await response.blob();
         const file = new File([blob], `${finalArchetypeKey}.jpg`, { type: blob.type });
 
@@ -468,24 +474,21 @@
             title: 'Meu Perfil — O Espelho do Teto',
             text: 'Descubra o seu perfil em @observadordeteto'
           });
-        } else {
-          fallbackDownload(finalArchetype.image);
+          return;
         }
-      } catch (error) {
-        console.log('Erro no share nativo:', error);
-        fallbackDownload(finalArchetype.image);
+      } catch (err) {
+        console.log('Share nativo por arquivo indisponível, usando download direto.');
       }
-    }
 
-    function fallbackDownload(imgUrl) {
+      // Fallback seguro: abre/baixa a imagem diretamente para postar nos Stories
       const link = document.createElement('a');
-      link.href = imgUrl;
+      link.href = finalArchetype.image;
       link.target = '_blank';
       link.download = 'meu-perfil-espelho.jpg';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      alert('Card aberto! Pressione a imagem para salvar e postar nos seus Stories.');
+      alert('Card pronto! Pressione a imagem para salvá-la e postar nos seus Stories.');
     }
   </script>
 </body>
