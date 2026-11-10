@@ -1,415 +1,380 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>O Espelho do Teto — Diagnóstico</title>
-  
-  <!-- Meta Tags para Redes Sociais (WhatsApp, Instagram, Telegram) -->
-  <meta property="og:title" content="O Espelho do Teto — Diagnóstico Comportamental">
-  <meta property="og:description" content="Descubra o perfil secreto da sua mente e seu padrão comportamental.">
-  <meta property="og:image" content="https://observadordeteto.github.io/-observador-app/capa.jpg">
-  <meta property="og:url" content="https://observadordeteto.github.io/-observador-app/">
-  <meta property="og:type" content="website">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Espelho do Teto - Diagnóstico do Perfil Mental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #050814;
+            --indigo-void: #0a0f24;
+            --electric-blue: #2a4365;
+            --amber-gold: #d4af37;
+            --amber-glow: #ffc107;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #07090E;
-      --card-bg: rgba(13, 17, 26, 0.94);
-      --text-main: #F8FAFC;
-      --text-muted: #94A3B8;
-      --amber: #F59E0B;
-      --amber-glow: rgba(245, 158, 11, 0.25);
-      --border: rgba(245, 158, 11, 0.25);
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-    }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 20%, #111b3c 0%, var(--bg-deep) 80%);
+        }
 
-    body {
-      background-color: var(--bg);
-      background-image: linear-gradient(rgba(7, 9, 14, 0.88), rgba(7, 9, 14, 0.88)), url('fundo.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 500px;
-      background: var(--card-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.85), 0 0 35px rgba(245, 158, 11, 0.08);
-      text-align: center;
-      overflow: hidden;
-    }
+        .screen {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
 
-    header h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.5rem;
-      color: var(--amber);
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    header p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .fade-anim {
-      animation: slideFadeIn 0.35s ease forwards;
-    }
+        /* Tela Inicial / Quiz */
+        .card-box {
+            background: rgba(10, 15, 36, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 30px 20px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
 
-    @keyframes slideFadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        h1, h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--amber-gold);
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
 
-    .intro-screen p {
-      font-size: 1.05rem;
-      color: var(--text-main);
-      line-height: 1.6;
-      margin-bottom: 24px;
-      text-align: left;
-    }
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
 
-    .start-btn, .share-btn {
-      width: 100%;
-      padding: 18px;
-      background: var(--amber);
-      color: #07090E;
-      border: none;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: opacity 0.2s ease, transform 0.1s ease;
-    }
+        .btn {
+            background: linear-gradient(135deg, var(--amber-gold), #b89728);
+            color: #050814;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    .start-btn:hover, .share-btn:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-    }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
 
-    .quiz-screen, .result-card {
-      display: none;
-      text-align: left;
-    }
+        /* Opções do Quiz */
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin-top: 15px;
+        }
 
-    .progress-bar {
-      height: 6px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 3px;
-      margin-bottom: 24px;
-      overflow: hidden;
-    }
+        .option-btn {
+            background: rgba(42, 67, 101, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-main);
+            padding: 16px;
+            border-radius: 10px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
 
-    .progress-fill {
-      height: 100%;
-      background: var(--amber);
-      width: 0%;
-      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+        .option-btn:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--amber-gold);
+            transform: translateX(4px);
+        }
 
-    .statement-box {
-      font-size: 1.15rem;
-      font-weight: 600;
-      line-height: 1.5;
-      margin-bottom: 24px;
-      color: var(--text-main);
-      text-align: center;
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        /* Tela de Resultado */
+        .result-image-container {
+            width: 100%;
+            max-width: 340px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            margin-bottom: 20px;
+        }
 
-    .scale-instruction {
-      font-size: 0.85rem;
-      color: var(--amber);
-      text-align: center;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-    }
+        .result-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-    .scale-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+        .deep-analysis {
+            background: rgba(10, 15, 36, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            width: 100%;
+        }
 
-    .scale-btn {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--text-main);
-      padding: 14px 16px;
-      border-radius: 12px;
-      text-align: left;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .deep-analysis h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--amber-gold);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 6px;
+        }
 
-    .scale-btn-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .deep-analysis p {
+            color: var(--text-main);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
 
-    .scale-badge {
-      background: rgba(245, 158, 11, 0.15);
-      color: var(--amber);
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-    }
+        .share-btn {
+            background: linear-gradient(135deg, #ffc107, #d4af37);
+            margin-bottom: 15px;
+        }
 
-    .scale-btn:active, .scale-btn:hover {
-      border-color: var(--amber);
-      background: var(--amber-glow);
-    }
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
 
-    .result-card {
-      text-align: center;
-    }
-
-    .result-image-preview {
-      width: 100%;
-      max-height: 380px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      margin-bottom: 20px;
-    }
-
-    .result-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1.3rem;
-      color: #FFF;
-      margin-bottom: 16px;
-    }
-
-    footer {
-      margin-top: 24px;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      letter-spacing: 1.5px;
-    }
-  </style>
+        .progress-fill {
+            height: 100%;
+            background: var(--amber-gold);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <h1>O Espelho do Teto</h1>
-      <p>Diagnóstico do Perfil Mental</p>
-    </header>
+    <div class="container">
+        <!-- TELA 1: CAPA -->
+        <div id="screen-welcome" class="screen active">
+            <div class="card-box">
+                <h1>O ESPELHO DO TETO</h1>
+                <p>Descubra as engrenagens ocultas da sua mente através de um diagnóstico surrealista de perfil profundo.</p>
+                <button class="btn" onclick="startQuiz()">Iniciar Diagnóstico</button>
+            </div>
+        </div>
 
-    <!-- Tela de Introdução -->
-    <div class="intro-screen" id="intro-screen">
-      <p>🧠 <strong>Descubra o padrão da sua mente:</strong> Este teste revela como a sua inteligência reage sob pressão e qual o seu verdadeiro superpoder comportamental.</p>
-      <p>⚡ Responda rápido, de acordo com o seu primeiro impulso.</p>
-      <button class="start-btn" onclick="startQuiz()">Descobrir Meu Perfil</button>
+        <!-- TELA 2: PERGUNTAS DO QUIZ -->
+        <div id="screen-quiz" class="screen">
+            <div class="card-box">
+                <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+                <h2 id="question-title" style="font-size: 1.1rem; margin-bottom: 20px;">Pergunta</h2>
+                <div id="options-container" class="options-container"></div>
+            </div>
+        </div>
+
+        <!-- TELA 3: RESULTADO -->
+        <div id="screen-result" class="screen">
+            <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+                
+                <!-- O Card Visual Gerado -->
+                <div class="result-image-container">
+                    <img id="result-img" src="" alt="Seu Card de Arquétipo">
+                </div>
+
+                <!-- Botão de Compartilhar -->
+                <button class="btn share-btn" onclick="shareResult()">✨ Compartilhar Card nos Stories</button>
+
+                <!-- Texto Aprofundado -->
+                <div class="deep-analysis">
+                    <h3 id="analysis-title">Análise Profunda</h3>
+                    <p id="analysis-text">Carregando análise...</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Tela do Quiz -->
-    <div class="quiz-screen" id="quiz-screen">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progress"></div>
-      </div>
-      <div class="scale-instruction">Quanto isso combina com você?</div>
-      <div class="statement-box" id="statement-text">Carregando...</div>
-      <div class="scale-container" id="scale-container"></div>
-    </div>
+    <script>
+        const questions = [
+            {
+                title: "Quando confrontado com o caos repentino ao seu redor, qual é a sua reação instintiva?",
+                options: [
+                    { text: "Isolar-se mentalmente para calcular a melhor rota de fuga ou solução.", archetype: "estrategico" },
+                    { text: "Absorver a energia do caos e transformá-la em ação imediata e intensa.", archetype: "intensivo" },
+                    { text: "Parar, analisar a estrutura invisível do problema e desenhar um plano de longo prazo.", archetype: "arquiteto" },
+                    { text: "Observar em silêncio, recolhendo detalhes que ninguém mais percebeu.", archetype: "observador" }
+                ]
+            },
+            {
+                title: "Qual ambiente mental reflete melhor o seu santuário interno?",
+                options: [
+                    { text: "Uma sala de espelhos geométricos onde cada pensamento é pesado e medido.", archetype: "estrategico" },
+                    { text: "Uma tempestade controlada de correntes de luz e eletricidade pura.", archetype: "intensivo" },
+                    { text: "Uma grande oficina com plantas arquitetônicas e relógios ajustando o tempo.", archetype: "arquiteto" },
+                    { text: "Um observatório silencioso voltado para um horizonte infinito e enigmático.", archetype: "observador" }
+                ]
+            },
+            {
+                title: "O que mais drena a sua energia nas relações sociais?",
+                options: [
+                    { text: "A falta de lógica e decisões baseadas puramente na emoção cega.", archetype: "estrategico" },
+                    { text: "A lentidão, a apatia e a falta de pulso ou intensidade das pessoas.", archetype: "intensivo" },
+                    { text: "A desorganização, falta de visão de futuro e improviso constante dos outros.", archetype: "arquiteto" },
+                    { text: "A superficialidade, conversas vazias e máscaras sociais óbvias.", archetype: "observador" }
+                ]
+            }
+        ];
 
-    <!-- Tela de Resultado (Exibe a imagem JPG gerada no Flow) -->
-    <div class="result-card" id="result-screen">
-      <h2 class="result-title">Seu Diagnóstico Oficial</h2>
-      <img id="result-img" class="result-image-preview" src="" alt="Resultado do Arquétipo">
-      <button class="share-btn" onclick="shareResultImage()">✨ Compartilhar Card nos Stories</button>
-    </div>
+        const resultsData = {
+            estrategico: {
+                image: "resultado-estrategico.jpg",
+                title: "Análise Profunda: O Estratégico",
+                text: "Sua mente opera em frequências frias e calculistas. Enquanto o mundo reage no impulso, você antecipa os movimentos antes mesmo do tabuleiro se mover. Sua maior força é a clareza absoluta sob pressão, enxergando padrões onde os outros veem apenas confusão."
+            },
+            intensivo: {
+                image: "resultado-intensivo.jpg",
+                title: "Análise Profunda: O Intensivo",
+                text: "Você não sabe viver na superfície. Sua energia consome o espaço e transforma o ritmo ao seu redor. O que para os outros é excesso, para você é apenas a voltagem natural da sua existência, movida a impulsos de alta frequência."
+            },
+            arquiteto: {
+                image: "resultado-arquiteto.jpg",
+                title: "Análise Profunda: O Arquiteto",
+                text: "Suas mãos moldam o invisível. Você enxerga as estruturas do futuro e constrói pontes lógicas onde todos os outros veem apenas o caos. Nada acontece por acaso no seu reino mental; cada pilar é rigorosamente planejado."
+            },
+            observador: {
+                image: "resultado-observador.jpg",
+                title: "Análise Profunda: O Observador",
+                text: "Você habita o silêncio que antecede a revelação. Enquanto todos falam, você lê os entrelinhas, absorve o invisível e enxerga através das máscaras que a sociedade tenta vestir. Sua sabedoria reside na percepção sutil."
+            }
+        };
 
-    <footer>
-      @observadordeteto
-    </footer>
-  </div>
+        let currentQuestion = 0;
+        let scores = { estrategico: 0, intensivo: 0, arquiteto: 0, observador: 0 };
+        let finalArchetype = '';
 
-  <script>
-    const statements = [
-      { text: "Quando tudo vira uma bagunça, eu prefiro manter a calma e resolver com lógica.", type: "A" },
-      { text: "Para desacelerar a cabeça, eu prefiro mexer no celular ou ouvir algo.", type: "B" },
-      { text: "Gosto de organizar tudo com antecedência para não ter surpresas chatas.", type: "C" },
-      { text: "Às vezes eu sei exatamente o que preciso fazer, mas acabo adiando o primeiro passo.", type: "D" },
-      { text: "Prefiro pensar muito bem antes de tomar uma decisão emocional.", type: "A" },
-      { text: "No final do dia, sinto que minha mente precisa de um momento total de pausa.", type: "B" },
-      { text: "Sou muito exigente comigo mesmo para garantir que as coisas saiam perfeitas.", type: "C" },
-      { text: "Tenho uma forte capacidade de observar os outros e entender o ambiente ao redor.", type: "D" }
-    ];
-
-    // Mapeamento das imagens oficiais geradas no Flow e salvas no GitHub
-    const archetypes = {
-      A: {
-        title: "O Estratégico",
-        image: "resultado-estrategico.jpg"
-      },
-      B: {
-        title: "O Intensivo",
-        image: "resultado-intensivo.jpg"
-      },
-      C: {
-        title: "O Arquiteto",
-        image: "resultado-arquiteto.jpg"
-      },
-      D: {
-        title: "O Observador",
-        image: "resultado-observador.jpg"
-      }
-    };
-
-    let currentIdx = 0;
-    const scores = { A: 0, B: 0, C: 0, D: 0 };
-    let finalArchetypeData = null;
-
-    function startQuiz() {
-      document.getElementById('intro-screen').style.display = 'none';
-      const quizScreen = document.getElementById('quiz-screen');
-      quizScreen.style.display = 'block';
-      quizScreen.classList.add('fade-anim');
-      loadStatement();
-    }
-
-    function loadStatement() {
-      const quizScreen = document.getElementById('quiz-screen');
-      quizScreen.classList.remove('fade-anim');
-      void quizScreen.offsetWidth;
-      quizScreen.classList.add('fade-anim');
-
-      const item = statements[currentIdx];
-      document.getElementById('statement-text').innerText = `"${item.text}"`;
-      
-      const container = document.getElementById('scale-container');
-      container.innerHTML = '';
-
-      const scaleOptions = [
-        { score: 5, label: "Totalmente eu", icon: "🔥" },
-        { score: 4, label: "Muitas vezes", icon: "✨" },
-        { score: 3, label: "Às vezes", icon: "⚖️" },
-        { score: 2, label: "Pouco", icon: "🔹" },
-        { score: 1, label: "Quase nada", icon: "⚪" },
-        { score: 0, label: "Nada a ver", icon: "❌" }
-      ];
-
-      scaleOptions.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'scale-btn';
-        btn.innerHTML = `
-          <div class="scale-btn-left">
-            <span>${opt.icon}</span>
-            <span>${opt.label}</span>
-          </div>
-          <span class="scale-badge">+${opt.score}</span>
-        `;
-        btn.onclick = () => answerStatement(item.type, opt.score);
-        container.appendChild(btn);
-      });
-
-      const progressPercent = (currentIdx / statements.length) * 100;
-      document.getElementById('progress').style.width = `${progressPercent}%`;
-    }
-
-    function answerStatement(type, points) {
-      scores[type] += points;
-      currentIdx++;
-
-      if (currentIdx < statements.length) {
-        loadStatement();
-      } else {
-        showResult();
-      }
-    }
-
-    function showResult() {
-      document.getElementById('quiz-screen').style.display = 'none';
-      const resultScreen = document.getElementById('result-screen');
-      resultScreen.style.display = 'block';
-      resultScreen.classList.add('fade-anim');
-
-      let winner = 'A';
-      let maxScore = -1;
-      for (const [type, score] of Object.entries(scores)) {
-        if (score > maxScore) {
-          maxScore = score;
-          winner = type;
+        function startQuiz() {
+            document.getElementById('screen-welcome').classList.remove('active');
+            document.getElementById('screen-quiz').classList.add('active');
+            loadQuestion();
         }
-      }
 
-      finalArchetypeData = archetypes[winner];
-      
-      // Insere a imagem oficial do Flow direto na tela de resultado
-      document.getElementById('result-img').src = finalArchetypeData.image;
-    }
+        function loadQuestion() {
+            if (currentQuestion < questions.length) {
+                const q = questions[currentQuestion];
+                document.getElementById('question-title').innerText = q.title;
+                
+                const progress = ((currentQuestion) / questions.length) * 100;
+                document.getElementById('progress-fill').style.width = progress + '%';
 
-    // Compartilha ou baixa diretamente a imagem JPG do Flow
-    async function shareResultImage() {
-      if (!finalArchetypeData) return;
+                const container = document.getElementById('options-container');
+                container.innerHTML = '';
 
-      const imageUrl = finalArchetypeData.image;
-
-      try {
-        const response = await fetch(imageUrl);
-        const blob = await response.blob();
-        const file = new File([blob], "meu-resultado-espelho.jpg", { type: "image/jpeg" });
-
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: 'Meu Perfil — O Espelho do Teto',
-            text: 'Descubra o seu perfil em @observadordeteto'
-          });
-        } else {
-          downloadImageDirectly(imageUrl);
+                q.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerText = opt.text;
+                    btn.onclick = () => selectAnswer(opt.archetype);
+                    container.appendChild(btn);
+                });
+            } else {
+                showResult();
+            }
         }
-      } catch (err) {
-        downloadImageDirectly(imageUrl);
-      }
-    }
 
-    function downloadImageDirectly(url) {
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'meu-resultado-espelho.jpg';
-      link.target = '_blank';
-      link.click();
-      alert('Imagem pronta! Baixada para o seu dispositivo para postar nos Stories.');
-    }
-  </script>
+        function selectAnswer(archetype) {
+            scores[archetype]++;
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function showResult() {
+            document.getElementById('screen-quiz').classList.remove('active');
+            document.getElementById('screen-result').classList.add('active');
+
+            // Determinar o arquétipo vencedor
+            finalArchetype = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+            const data = resultsData[finalArchetype];
+
+            // Atribuir imagem e textos corretos
+            document.getElementById('result-img').src = data.image;
+            document.getElementById('analysis-title').innerText = data.title;
+            document.getElementById('analysis-text').innerText = data.text;
+        }
+
+        async function shareResult() {
+            const data = resultsData[finalArchetype];
+            try {
+                const response = await fetch(data.image);
+                const blob = await response.blob();
+                const file = new File([blob], `${finalArchetype}.jpg`, { type: blob.type });
+
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: 'Meu Diagnóstico - O Espelho do Teto',
+                        text: 'Descubra seu perfil mental em O Espelho do Teto!'
+                    });
+                } else if (navigator.share) {
+                    await navigator.share({
+                        title: 'Meu Diagnóstico - O Espelho do Teto',
+                        text: 'Descubra seu perfil mental em O Espelho do Teto!',
+                        url: window.location.href
+                    });
+                } else {
+                    alert('O compartilhamento nativo não é suportado neste navegador. Salve a imagem manualmente para postar nos Stories.');
+                }
+            } catch (error) {
+                console.log('Erro ao compartilhar:', error);
+                alert('Não foi possível compartilhar automaticamente. Você pode tirar um print ou salvar a imagem para postar.');
+            }
+        }
+    </script>
 </body>
 </html>
