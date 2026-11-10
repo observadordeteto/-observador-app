@@ -331,7 +331,6 @@
       { text: "Tenho uma forte capacidade de observar os outros e entender o ambiente ao redor.", type: "D" }
     ];
 
-    // Caminhos relativos diretos (mesma pasta no GitHub Pages)
     const archetypes = {
       A: {
         title: "O ESTRATEGISTA (Mente Fria)",
@@ -432,7 +431,6 @@
       resultScreen.classList.add('fade-anim');
 
       let winner = 'A';
-      let maxScore - -1;
       let maxVal = -1;
       for (const [type, score] of Object.entries(scores)) {
         if (score > maxVal) {
@@ -449,16 +447,9 @@
       document.getElementById('res-tendencia').innerText = finalArchetype.tendencia;
       document.getElementById('res-conselho').innerText = finalArchetype.conselho;
       
-      // Atribuição direta da imagem com fallback automático
-      const imgElement = document.getElementById('result-card-img');
-      imgElement.src = finalArchetype.image;
-      imgElement.onerror = function() {
-        // Se falhar o caminho direto, tenta com barra inicial
-        this.src = '/' + finalArchetype.image;
-      };
+      document.getElementById('result-card-img').src = finalArchetype.image;
     }
 
-    // Função de compartilhamento e download otimizada para celulares
     async function shareCard() {
       const finalArchetype = archetypes[finalArchetypeKey];
       if (!finalArchetype) return;
@@ -477,10 +468,9 @@
           return;
         }
       } catch (err) {
-        console.log('Share nativo por arquivo indisponível, usando download direto.');
+        console.log('Share nativo por arquivo indisponível.');
       }
 
-      // Fallback seguro: abre/baixa a imagem diretamente para postar nos Stories
       const link = document.createElement('a');
       link.href = finalArchetype.image;
       link.target = '_blank';
