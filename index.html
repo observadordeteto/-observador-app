@@ -7,8 +7,8 @@
   
   <meta property="og:title" content="O Espelho do Teto — Diagnóstico Comportamental">
   <meta property="og:description" content="Descubra o perfil secreto da sua mente e seu padrão comportamental.">
-  <meta property="og:image" content="capa.png">
-  <meta property="og:url" content="">
+  <meta property="og:image" content="https://observadordeteto.github.io/app/capa.png">
+  <meta property="og:url" content="https://observadordeteto.github.io/app/">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -336,35 +336,35 @@
       { text: "Tenho uma forte capacidade de observar os outros e entender o ambiente ao redor.", type: "D" }
     ];
 
-    // URLs apontando direto para os arquivos na raiz (sem o prefixo img/)
+    // URLs absolutas atualizadas para buscar direto da raiz do repositório 'app'
     const archetypes = {
       A: {
         title: "O ESTRATEGISTA (Mente Fria)",
         poder: "Você tem uma inteligência lógica afiada. Enquanto os outros se apavoram, você consegue manter a clareza e achar a solução certeira.",
         tendencia: "Sua mente é tão analítica que às vezes você pensa demais antes de sentir. Seu cérebro é um motor de alta precisão.",
         conselho: "Confie mais na sua intuição. Nem tudo precisa de uma explicação para dar certo.",
-        image: "resultado-estrategico.jpg"
+        image: "https://observadordeteto.github.io/app/resultado-estrategico.jpg"
       },
       B: {
         title: "O INTENSIVO (Foco e Ritmo)",
         poder: "Você absorve muita informação rápida e tem uma mente elétrica. Sua capacidade de se conectar com novidades é única.",
         tendencia: "Você gosta de manter sua mente em movimento contínuo para aproveitar o máximo da vida e do seu tempo.",
         conselho: "Crie pequenos momentos diários de silêncio para recarregar suas energias ao máximo.",
-        image: "resultado-intensivo.jpg"
+        image: "https://observadordeteto.github.io/app/resultado-intensivo.jpg"
       },
       C: {
         title: "O ARQUITETO (Visão de Futuro)",
         poder: "Você enxerga o cenário completo antes de todo mundo. Sua capacidade de planejar e proteger o que importa é incomparável.",
         tendencia: "Seu padrão de excelência é alto. Você se cobra para entregar sempre a melhor versão possível em tudo que faz.",
         conselho: "Celebre as pequenas vitórias pelo caminho, sem esperar apenas o resultado final.",
-        image: "resultado-arquiteto.jpg"
+        image: "https://observadordeteto.github.io/app/resultado-arquiteto.jpg"
       },
       D: {
         title: "O OBSERVADOR (Visão Profunda)",
         poder: "Você tem uma percepção humana raríssima. Consegue ler pessoas, ambientes e detalhes que quase ninguém nota.",
         tendencia: "Sua lucidez é enorme. Você prefere entender todo o mapa antes de dar o seu próximo grande salto.",
         conselho: "Transforme a sua grande clareza em ação imediata. O mundo precisa das suas ideias fora do papel.",
-        image: "resultado-observador.jpg"
+        image: "https://observadordeteto.github.io/app/resultado-observador.jpg"
       }
     };
 
@@ -382,4 +382,120 @@
     }
 
     function loadStatement() {
-      const
+      const quizScreen = document.getElementById('quiz-screen');
+      quizScreen.classList.remove('fade-anim');
+      void quizScreen.offsetWidth; 
+      quizScreen.classList.add('fade-anim');
+
+      const item = statements[currentIdx];
+      document.getElementById('statement-text').innerText = `"${item.text}"`;
+      
+      const container = document.getElementById('scale-container');
+      container.innerHTML = '';
+
+      const scaleOptions = [
+        { score: 5, label: "Totalmente eu", icon: "🔥" },
+        { score: 4, label: "Muitas vezes", icon: "✨" },
+        { score: 3, label: "Às vezes", icon: "⚖️" },
+        { score: 2, label: "Pouco", icon: "🔹" },
+        { score: 1, label: "Quase nada", icon: "⚪" },
+        { score: 0, label: "Nada a ver", icon: "❌" }
+      ];
+
+      scaleOptions.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'scale-btn';
+        btn.innerHTML = `
+          <div class="scale-btn-left">
+            <span class="scale-btn-icon">${opt.icon}</span>
+            <span>${opt.label}</span>
+          </div>
+          <span class="scale-badge">+${opt.score}</span>
+        `;
+        btn.onclick = () => answerStatement(item.type, opt.score);
+        container.appendChild(btn);
+      });
+
+      const progressPercent = (currentIdx / statements.length) * 100;
+      document.getElementById('progress').style.width = `${progressPercent}%`;
+    }
+
+    function answerStatement(type, points) {
+      scores[type] += points;
+      currentIdx++;
+
+      if (currentIdx < statements.length) {
+        loadStatement();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('quiz-screen').style.display = 'none';
+      const resultScreen = document.getElementById('result-screen');
+      resultScreen.style.display = 'block';
+      resultScreen.classList.add('fade-anim');
+
+      let winner = 'A';
+      let maxScore = -1;
+      for (const [type, score] of Object.entries(scores)) {
+        if (score > maxScore) {
+          maxScore = score;
+          winner = type;
+        }
+      }
+
+      finalArchetypeKey = winner;
+      finalArchetype = archetypes[winner];
+      
+      document.getElementById('res-title').innerText = finalArchetype.title;
+      document.getElementById('res-poder').innerText = finalArchetype.poder;
+      document.getElementById('res-tendencia').innerText = finalArchetype.tendencia;
+      document.getElementById('res-conselho').innerText = finalArchetype.conselho;
+      
+      document.getElementById('result-card-img').src = finalArchetype.image;
+    }
+
+    function shareCard() {
+      if (!finalArchetype) return;
+
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = finalArchetype.image;
+      
+      img.onload = function() {
+        const canvas = document.getElementById('cardCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob(blob => {
+          const file = new File([blob], "meu-perfil-espelho.jpg", { type: "image/jpeg" });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator.share({
+              files: [file],
+              title: 'Meu Perfil — O Espelho do Teto',
+              text: 'Descubra o seu perfil em @observadordeteto'
+            }).catch(() => downloadImage(canvas));
+          } else {
+            downloadImage(canvas);
+          }
+        }, 'image/jpeg', 0.95);
+      };
+
+      img.onerror = function() {
+        alert('Não foi possível carregar a imagem para partilha automática. Pressione a imagem na tela para salvá-la.');
+      };
+    }
+
+    function downloadImage(canvas) {
+      const link = document.createElement('a');
+      link.download = 'meu-perfil-espelho.jpg';
+      link.href = canvas.toDataURL('image/jpeg', 0.95);
+      link.click();
+      alert('Card gerado! Verifique seus downloads para postar nos Stories.');
+    }
+  </script>
+</body>
+</html>
