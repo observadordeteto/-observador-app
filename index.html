@@ -236,7 +236,6 @@
       line-height: 1.55;
     }
 
-    /* Exibição da imagem do card na tela */
     .result-image-container {
       width: 100%;
       max-width: 300px;
@@ -293,7 +292,6 @@
     <!-- Tela de Resultado -->
     <div class="result-card" id="result-screen">
       
-      <!-- Imagem do Card Correspondente -->
       <div class="result-image-container">
         <img id="result-card-img" src="" alt="Seu Card">
       </div>
@@ -338,34 +336,35 @@
       { text: "Tenho uma forte capacidade de observar os outros e entender o ambiente ao redor.", type: "D" }
     ];
 
+    // URLs absolutas organizadas na pasta img/ do GitHub Pages para evitar erros de rota e CORS
     const archetypes = {
       A: {
         title: "O ESTRATEGISTA (Mente Fria)",
         poder: "Você tem uma inteligência lógica afiada. Enquanto os outros se apavoram, você consegue manter a clareza e achar a solução certeira.",
         tendencia: "Sua mente é tão analítica que às vezes você pensa demais antes de sentir. Seu cérebro é um motor de alta precisão.",
         conselho: "Confie mais na sua intuição. Nem tudo precisa de uma explicação para dar certo.",
-        image: "resultado-estrategico.jpg"
+        image: "https://observadordeteto.github.io/-observador-app/img/resultado-estrategico.jpg"
       },
       B: {
         title: "O INTENSIVO (Foco e Ritmo)",
         poder: "Você absorve muita informação rápida e tem uma mente elétrica. Sua capacidade de se conectar com novidades é única.",
         tendencia: "Você gosta de manter sua mente em movimento contínuo para aproveitar o máximo da vida e do seu tempo.",
         conselho: "Crie pequenos momentos diários de silêncio para recarregar suas energias ao máximo.",
-        image: "resultado-intensivo.jpg"
+        image: "https://observadordeteto.github.io/-observador-app/img/resultado-intensivo.jpg"
       },
       C: {
         title: "O ARQUITETO (Visão de Futuro)",
         poder: "Você enxerga o cenário completo antes de todo mundo. Sua capacidade de planejar e proteger o que importa é incomparável.",
         tendencia: "Seu padrão de excelência é alto. Você se cobra para entregar sempre a melhor versão possível em tudo que faz.",
         conselho: "Celebre as pequenas vitórias pelo caminho, sem esperar apenas o resultado final.",
-        image: "resultado-arquiteto.jpg"
+        image: "https://observadordeteto.github.io/-observador-app/img/resultado-arquiteto.jpg"
       },
       D: {
         title: "O OBSERVADOR (Visão Profunda)",
         poder: "Você tem uma percepção humana raríssima. Consegue ler pessoas, ambientes e detalhes que quase ninguém nota.",
         tendencia: "Sua lucidez é enorme. Você prefere entender todo o mapa antes de dar o seu próximo grande salto.",
         conselho: "Transforme a sua grande clareza em ação imediata. O mundo precisa das suas ideias fora do papel.",
-        image: "resultado-observador.jpg"
+        image: "https://observadordeteto.github.io/-observador-app/img/resultado-observador.jpg"
       }
     };
 
@@ -455,11 +454,10 @@
       document.getElementById('res-tendencia').innerText = finalArchetype.tendencia;
       document.getElementById('res-conselho').innerText = finalArchetype.conselho;
       
-      // Exibe a imagem na tela de resultado
+      // Atribui a URL absoluta da imagem na pasta img/
       document.getElementById('result-card-img').src = finalArchetype.image;
     }
 
-    // Compartilhamento nativo exato que estava funcionando na sua base
     function shareCard() {
       if (!finalArchetype) return;
 
@@ -471,7 +469,6 @@
         const canvas = document.getElementById('cardCanvas');
         const ctx = canvas.getContext('2d');
         
-        // Desenha a imagem do card carregada no canvas em alta resolução para os Stories
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
         canvas.toBlob(blob => {
@@ -489,7 +486,6 @@
       };
 
       img.onerror = function() {
-        // Fallback caso a imagem dê erro ao carregar no canvas
         alert('Não foi possível carregar a imagem para partilha automática. Pressione a imagem na tela para salvá-la.');
       };
     }
