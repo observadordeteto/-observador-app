@@ -11,7 +11,6 @@
             --indigo-void: #0a0f24;
             --electric-blue: #2a4365;
             --amber-gold: #d4af37;
-            --amber-glow: #ffc107;
             --text-main: #e2e8f0;
             --text-muted: #94a3b8;
         }
@@ -33,6 +32,7 @@
             justify-content: center;
             overflow-x: hidden;
             background-image: radial-gradient(circle at 50% 20%, #111b3c 0%, var(--bg-deep) 80%);
+            padding: 20px 0;
         }
 
         .container {
@@ -61,7 +61,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Tela Inicial / Quiz */
         .card-box {
             background: rgba(10, 15, 36, 0.85);
             border: 1px solid rgba(212, 175, 55, 0.3);
@@ -108,7 +107,6 @@
             box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
         }
 
-        /* Opções do Quiz */
         .options-container {
             display: flex;
             flex-direction: column;
@@ -152,20 +150,27 @@
             display: block;
         }
 
+        .share-btn {
+            background: linear-gradient(135deg, #ffc107, #d4af37);
+            margin-bottom: 25px;
+            max-width: 340px;
+        }
+
         .deep-analysis {
             background: rgba(10, 15, 36, 0.9);
             border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 12px;
             padding: 20px;
-            margin-top: 20px;
+            margin-bottom: 30px;
             text-align: left;
             width: 100%;
+            max-width: 340px;
         }
 
         .deep-analysis h3 {
             font-family: 'Cinzel', serif;
             color: var(--amber-gold);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-bottom: 10px;
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             padding-bottom: 6px;
@@ -175,11 +180,7 @@
             color: var(--text-main);
             font-size: 0.9rem;
             margin-bottom: 0;
-        }
-
-        .share-btn {
-            background: linear-gradient(135deg, #ffc107, #d4af37);
-            margin-bottom: 15px;
+            line-height: 1.6;
         }
 
         .progress-bar {
@@ -222,21 +223,18 @@
 
         <!-- TELA 3: RESULTADO -->
         <div id="screen-result" class="screen">
-            <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-                
-                <!-- O Card Visual Gerado -->
-                <div class="result-image-container">
-                    <img id="result-img" src="" alt="Seu Card de Arquétipo">
-                </div>
+            <!-- 1. O Card Visual -->
+            <div class="result-image-container">
+                <img id="result-img" src="" alt="Seu Card de Arquétipo">
+            </div>
 
-                <!-- Botão de Compartilhar -->
-                <button class="btn share-btn" onclick="shareResult()">✨ Compartilhar Card nos Stories</button>
+            <!-- 2. Botão de Compartilhar -->
+            <button class="btn share-btn" onclick="shareResult()">✨ Compartilhar Card nos Stories</button>
 
-                <!-- Texto Aprofundado -->
-                <div class="deep-analysis">
-                    <h3 id="analysis-title">Análise Profunda</h3>
-                    <p id="analysis-text">Carregando análise...</p>
-                </div>
+            <!-- 3. Texto Aprofundado Logo Abaixo -->
+            <div class="deep-analysis">
+                <h3 id="analysis-title">Análise Profunda</h3>
+                <p id="analysis-text">Carregando análise...</p>
             </div>
         </div>
     </div>
@@ -272,6 +270,7 @@
             }
         ];
 
+        // Mapeamento exato com os nomes dos arquivos no seu GitHub com hífen
         const resultsData = {
             estrategico: {
                 image: "resultado-estrategico.jpg",
@@ -342,7 +341,7 @@
             finalArchetype = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
             const data = resultsData[finalArchetype];
 
-            // Atribuir imagem e textos corretos
+            // Atribuir imagem e textos corretos na ordem exata solicitada
             document.getElementById('result-img').src = data.image;
             document.getElementById('analysis-title').innerText = data.title;
             document.getElementById('analysis-text').innerText = data.text;
