@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>O Espelho do Teto — Diagnóstico</title>
+  
+  <!-- Meta tags de compartilhamento (Gera a imagem e o resumo no WhatsApp) -->
+  <meta property="og:title" content="O Espelho do Teto — Diagnóstico Psicológico">
+  <meta property="og:description" content="Descubra qual mecanismo automático a sua mente usa para fugir da realidade.">
+  <meta property="og:image" content="https://observadordeteto.github.io/fundo.jpg">
+  <meta property="og:url" content="https://observadordeteto.github.io/">
+  <meta property="og:type" content="website">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -272,7 +280,7 @@
 
   <script>
     const statements = [
-      { text: "Quando a rotina colapsa, eu iso­lo a emoção e busco uma saída puramente técnica e fria.", type: "A" },
+      { text: "Quando a rotina colapsa, eu isolo a emoção e busco uma saída puramente técnica e fria.", type: "A" },
       { text: "Minha mente busca distração constante (telas ou ruído) para não encarar o silêncio e o vazio.", type: "B" },
       { text: "Eu me pego planejando e controlando cada micro-detalhe do futuro para tentar me blindar de falhar.", type: "C" },
       { text: "Eu enxergo com clareza absoluta onde estou errando, mas continuo estático, sem conseguir agir.", type: "D" },
@@ -385,16 +393,13 @@
       const canvas = document.getElementById('cardCanvas');
       const ctx = canvas.getContext('2d');
 
-      // Fundo Escuro Proporção Stories (1080x1920)
       ctx.fillStyle = "#07090E";
       ctx.fillRect(0, 0, 1080, 1920);
 
-      // Moldura e Detalhes Âmbar
       ctx.strokeStyle = "#F59E0B";
       ctx.lineWidth = 8;
       ctx.strokeRect(60, 60, 960, 1800);
 
-      // Cabeçalho
       ctx.fillStyle = "#F59E0B";
       ctx.font = "bold 42px 'Cinzel', serif";
       ctx.textAlign = "center";
@@ -404,12 +409,10 @@
       ctx.font = "32px 'Inter', sans-serif";
       ctx.fillText("DIAGNÓSTICO REVELADO", 540, 220);
 
-      // Título do Arquétipo
       ctx.fillStyle = "#FFFFFF";
       ctx.font = "bold 56px 'Cinzel', serif";
       ctx.fillText(finalArchetype.title, 540, 360);
 
-      // Espelhamento (Frase Central de Impacto)
       ctx.fillStyle = "#F59E0B";
       ctx.font = "bold 36px 'Inter', sans-serif";
       ctx.fillText("O ESPELHAMENTO:", 540, 500);
@@ -418,12 +421,10 @@
       ctx.font = "italic 40px 'Inter', sans-serif";
       wrapText(ctx, `"${finalArchetype.espelho}"`, 540, 580, 840, 56);
 
-      // Rodapé
       ctx.fillStyle = "#94A3B8";
       ctx.font = "bold 36px 'Inter', sans-serif";
       ctx.fillText("@observadordeteto", 540, 1780);
 
-      // Exportação / Compartilhamento
       canvas.toBlob(blob => {
         const file = new File([blob], "espelho-do-teto.png", { type: "image/png" });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
