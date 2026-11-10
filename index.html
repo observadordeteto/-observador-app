@@ -7,8 +7,8 @@
   
   <meta property="og:title" content="O Espelho do Teto — Diagnóstico Comportamental">
   <meta property="og:description" content="Descubra o perfil secreto da sua mente e seu padrão comportamental.">
-  <meta property="og:image" content="capa.png">
-  <meta property="og:url" content="">
+  <meta property="og:image" content="https://observadordeteto.github.io/-observador-app/capa.png">
+  <meta property="og:url" content="https://observadordeteto.github.io/-observador-app/">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,16 +85,12 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .intro-screen {
-      display: block;
-      text-align: left;
-    }
-
     .intro-screen p {
       font-size: 1.05rem;
       color: var(--text-main);
       line-height: 1.6;
       margin-bottom: 24px;
+      text-align: left;
     }
 
     .start-btn, .share-btn {
@@ -240,14 +236,14 @@
       line-height: 1.55;
     }
 
+    /* Exibição da imagem do card na tela */
     .result-image-container {
       width: 100%;
-      max-width: 320px;
-      margin: 0 auto 24px auto;
-      border-radius: 14px;
+      max-width: 300px;
+      margin: 0 auto 20px auto;
+      border-radius: 12px;
       overflow: hidden;
       border: 2px solid var(--border);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
 
     .result-image-container img {
@@ -262,6 +258,10 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       letter-spacing: 1.5px;
+    }
+
+    canvas {
+      display: none;
     }
   </style>
 </head>
@@ -293,8 +293,9 @@
     <!-- Tela de Resultado -->
     <div class="result-card" id="result-screen">
       
+      <!-- Imagem do Card Correspondente -->
       <div class="result-image-container">
-        <img id="result-card-img" src="" alt="Seu Card de Arquétipo">
+        <img id="result-card-img" src="" alt="Seu Card">
       </div>
 
       <span class="result-tag">Seu Perfil Principal</span>
@@ -315,13 +316,15 @@
         <p id="res-conselho"></p>
       </div>
 
-      <button class="share-btn" onclick="shareCard()">✨ Compartilhar Card nos Stories</button>
+      <button class="share-btn" onclick="shareCard()">✨ Compartilhar Meu Perfil nos Stories</button>
     </div>
 
     <footer>
       @observadordeteto
     </footer>
   </div>
+
+  <canvas id="cardCanvas" width="1080" height="1920"></canvas>
 
   <script>
     const statements = [
@@ -335,40 +338,40 @@
       { text: "Tenho uma forte capacidade de observar os outros e entender o ambiente ao redor.", type: "D" }
     ];
 
-    // Uso de caminhos relativos explícitos (./) para garantir o carregamento correto no GitHub Pages
     const archetypes = {
       A: {
         title: "O ESTRATEGISTA (Mente Fria)",
         poder: "Você tem uma inteligência lógica afiada. Enquanto os outros se apavoram, você consegue manter a clareza e achar a solução certeira.",
         tendencia: "Sua mente é tão analítica que às vezes você pensa demais antes de sentir. Seu cérebro é um motor de alta precisão.",
         conselho: "Confie mais na sua intuição. Nem tudo precisa de uma explicação para dar certo.",
-        image: "./resultado-estrategico.jpg"
+        image: "resultado-estrategico.jpg"
       },
       B: {
         title: "O INTENSIVO (Foco e Ritmo)",
         poder: "Você absorve muita informação rápida e tem uma mente elétrica. Sua capacidade de se conectar com novidades é única.",
         tendencia: "Você gosta de manter sua mente em movimento contínuo para aproveitar o máximo da vida e do seu tempo.",
         conselho: "Crie pequenos momentos diários de silêncio para recarregar suas energias ao máximo.",
-        image: "./resultado-intensivo.jpg"
+        image: "resultado-intensivo.jpg"
       },
       C: {
         title: "O ARQUITETO (Visão de Futuro)",
         poder: "Você enxerga o cenário completo antes de todo mundo. Sua capacidade de planejar e proteger o que importa é incomparável.",
         tendencia: "Seu padrão de excelência é alto. Você se cobra para entregar sempre a melhor versão possível em tudo que faz.",
         conselho: "Celebre as pequenas vitórias pelo caminho, sem esperar apenas o resultado final.",
-        image: "./resultado-arquiteto.jpg"
+        image: "resultado-arquiteto.jpg"
       },
       D: {
         title: "O OBSERVADOR (Visão Profunda)",
         poder: "Você tem uma percepção humana raríssima. Consegue ler pessoas, ambientes e detalhes que quase ninguém nota.",
         tendencia: "Sua lucidez é enorme. Você prefere entender todo o mapa antes de dar o seu próximo grande salto.",
         conselho: "Transforme a sua grande clareza em ação imediata. O mundo precisa das suas ideias fora do papel.",
-        image: "./resultado-observador.jpg"
+        image: "resultado-observador.jpg"
       }
     };
 
     let currentIdx = 0;
     const scores = { A: 0, B: 0, C: 0, D: 0 };
+    let finalArchetype = null;
     let finalArchetypeKey = null;
 
     function startQuiz() {
@@ -436,60 +439,67 @@
       resultScreen.classList.add('fade-anim');
 
       let winner = 'A';
-      let maxVal = -1;
+      let maxScore = -1;
       for (const [type, score] of Object.entries(scores)) {
-        if (score > maxVal) {
-          maxVal = score;
+        if (score > maxScore) {
+          maxScore = score;
           winner = type;
         }
       }
 
       finalArchetypeKey = winner;
-      const finalArchetype = archetypes[winner];
+      finalArchetype = archetypes[winner];
       
       document.getElementById('res-title').innerText = finalArchetype.title;
       document.getElementById('res-poder').innerText = finalArchetype.poder;
       document.getElementById('res-tendencia').innerText = finalArchetype.tendencia;
       document.getElementById('res-conselho').innerText = finalArchetype.conselho;
       
-      const imgElement = document.getElementById('result-card-img');
-      imgElement.src = finalArchetype.image;
+      // Exibe a imagem na tela de resultado
+      document.getElementById('result-card-img').src = finalArchetype.image;
+    }
 
-      // Mecanismo de fallback caso o ./ falhe: tenta buscar direto pelo nome do arquivo na raiz
-      imgElement.onerror = function() {
-        this.src = finalArchetype.image.replace('./', '');
+    // Compartilhamento nativo exato que estava funcionando na sua base
+    function shareCard() {
+      if (!finalArchetype) return;
+
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = finalArchetype.image;
+      
+      img.onload = function() {
+        const canvas = document.getElementById('cardCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Desenha a imagem do card carregada no canvas em alta resolução para os Stories
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob(blob => {
+          const file = new File([blob], "meu-perfil-espelho.jpg", { type: "image/jpeg" });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator.share({
+              files: [file],
+              title: 'Meu Perfil — O Espelho do Teto',
+              text: 'Descubra o seu perfil em @observadordeteto'
+            }).catch(() => downloadImage(canvas));
+          } else {
+            downloadImage(canvas);
+          }
+        }, 'image/jpeg', 0.95);
+      };
+
+      img.onerror = function() {
+        // Fallback caso a imagem dê erro ao carregar no canvas
+        alert('Não foi possível carregar a imagem para partilha automática. Pressione a imagem na tela para salvá-la.');
       };
     }
 
-    async function shareCard() {
-      const finalArchetype = archetypes[finalArchetypeKey];
-      if (!finalArchetype) return;
-
-      try {
-        const response = await fetch(finalArchetype.image);
-        const blob = await response.blob();
-        const file = new File([blob], `${finalArchetypeKey}.jpg`, { type: blob.type });
-
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: 'Meu Perfil — O Espelho do Teto',
-            text: 'Descubra o seu perfil em @observadordeteto'
-          });
-          return;
-        }
-      } catch (err) {
-        console.log('Share nativo por arquivo indisponível.');
-      }
-
+    function downloadImage(canvas) {
       const link = document.createElement('a');
-      link.href = finalArchetype.image;
-      link.target = '_blank';
       link.download = 'meu-perfil-espelho.jpg';
-      document.body.appendChild(link);
+      link.href = canvas.toDataURL('image/jpeg', 0.95);
       link.click();
-      document.body.removeChild(link);
-      alert('Card pronto! Pressione a imagem para salvá-la e postar nos seus Stories.');
+      alert('Card gerado! Verifique seus downloads para postar nos Stories.');
     }
   </script>
 </body>
