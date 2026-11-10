@@ -76,7 +76,7 @@
       text-align: left;
     }
 
-    .start-btn, .copy-btn {
+    .start-btn, .share-btn {
       width: 100%;
       padding: 18px;
       background: var(--amber);
@@ -89,7 +89,7 @@
       transition: opacity 0.2s ease;
     }
 
-    .start-btn:hover, .copy-btn:hover {
+    .start-btn:hover, .share-btn:hover {
       opacity: 0.9;
     }
 
@@ -209,6 +209,10 @@
       color: var(--text-muted);
       letter-spacing: 1.5px;
     }
+
+    canvas {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -256,13 +260,15 @@
         <p id="res-convocacao"></p>
       </div>
 
-      <button class="copy-btn" onclick="copyResult()">Copiar Resultado para os Stories</button>
+      <button class="share-btn" onclick="shareCard()">Baixar / Compartilhar Card nos Stories</button>
     </div>
 
     <footer>
       @observadordeteto
     </footer>
   </div>
+
+  <canvas id="cardCanvas" width="1080" height="1920"></canvas>
 
   <script>
     const statements = [
@@ -305,6 +311,7 @@
 
     let currentIdx = 0;
     const scores = { A: 0, B: 0, C: 0, D: 0 };
+    let finalArchetype = null;
 
     function startQuiz() {
       document.getElementById('intro-screen').style.display = 'none';
@@ -365,21 +372,98 @@
         }
       }
 
-      const res = archetypes[winner];
-      document.getElementById('res-title').innerText = res.title;
-      document.getElementById('res-diag').innerText = res.diag;
-      document.getElementById('res-espelho').innerText = res.espelho;
-      document.getElementById('res-convocacao').innerText = res.convocacao;
+      finalArchetype = archetypes[winner];
+      document.getElementById('res-title').innerText = finalArchetype.title;
+      document.getElementById('res-diag').innerText = finalArchetype.diag;
+      document.getElementById('res-espelho').innerText = finalArchetype.espelho;
+      document.getElementById('res-convocacao').innerText = finalArchetype.convocacao;
     }
 
-    function copyResult() {
-      const title = document.getElementById('res-title').innerText;
-      const espelho = document.getElementById('res-espelho').innerText;
-      const text = `Meu resultado no Espelho do Teto:\n\n${title}\n"${espelho}"\n\nDescubra o seu em: @observadordeteto`;
-      
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Resultado copiado! Cole direto nos seus Stories.');
+    function shareCard() {
+      if (!finalArchetype) return;
+
+      const canvas = document.getElementById('cardCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // Fundo Escuro Proporção Stories (1080x1920)
+      ctx.fillStyle = "#07090E";
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      // Moldura e Detalhes Âmbar
+      ctx.strokeStyle = "#F59E0B";
+      ctx.lineWidth = 8;
+      ctx.strokeRect(60, 60, 960, 1800);
+
+      // Cabeçalho
+      ctx.fillStyle = "#F59E0B";
+      ctx.font = "bold 42px 'Cinzel', serif";
+      ctx.textAlign = "center";
+      ctx.fillText("O ESPELHO DO TETO", 540, 160);
+
+      ctx.fillStyle = "#94A3B8";
+      ctx.font = "32px 'Inter', sans-serif";
+      ctx.fillText("DIAGNÓSTICO REVELADO", 540, 220);
+
+      // Título do Arquétipo
+      ctx.fillStyle = "#FFFFFF";
+      ctx.font = "bold 56px 'Cinzel', serif";
+      ctx.fillText(finalArchetype.title, 540, 360);
+
+      // Espelhamento (Frase Central de Impacto)
+      ctx.fillStyle = "#F59E0B";
+      ctx.font = "bold 36px 'Inter', sans-serif";
+      ctx.fillText("O ESPELHAMENTO:", 540, 500);
+
+      ctx.fillStyle = "#F8FAFC";
+      ctx.font = "italic 40px 'Inter', sans-serif";
+      wrapText(ctx, `"${finalArchetype.espelho}"`, 540, 580, 840, 56);
+
+      // Rodapé
+      ctx.fillStyle = "#94A3B8";
+      ctx.font = "bold 36px 'Inter', sans-serif";
+      ctx.fillText("@observadordeteto", 540, 1780);
+
+      // Exportação / Compartilhamento
+      canvas.toBlob(blob => {
+        const file = new File([blob], "espelho-do-teto.png", { type: "image/png" });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+            files: [file],
+            title: 'Meu Diagnóstico — O Espelho do Teto',
+            text: 'Descubra o seu em @observadordeteto'
+          }).catch(() => downloadImage(canvas));
+        } else {
+          downloadImage(canvas);
+        }
       });
+    }
+
+    function downloadImage(canvas) {
+      const link = document.createElement('a');
+      link.download = 'espelho-do-teto.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      alert('Card gerado em alta resolução! Verifique seus downloads e compartilhe nos Stories.');
+    }
+
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      let currentY = y;
+
+      for (let n = 0; n < words.length; n++) {
+        let testLine = line + words[n] + ' ';
+        let metrics = ctx.measureText(testLine);
+        let testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+          ctx.fillText(line, x, currentY);
+          line = words[n] + ' ';
+          currentY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, x, currentY);
     }
   </script>
 </body>
