@@ -277,7 +277,7 @@
     <div class="intro-screen" id="intro-screen">
       <p>🧠 <strong>Descubra o padrão da sua mente:</strong> Este teste revela como a sua inteligência reage sob pressão e qual o seu verdadeiro superpoder comportamental.</p>
       <p>⚡ Responda rápido, de acordo com o seu primeiro impulso.</p>
-      <button class="start-btn" onclick="startQuiz()">Descubrir Meu Perfil</button>
+      <button class="start-btn" onclick="startQuiz()">Descobrir Meu Perfil</button>
     </div>
 
     <!-- Tela do Quiz -->
@@ -335,34 +335,35 @@
       { text: "Tenho uma forte capacidade de observar os outros e entender o ambiente ao redor.", type: "D" }
     ];
 
+    // Uso de caminhos relativos explícitos (./) para garantir o carregamento correto no GitHub Pages
     const archetypes = {
       A: {
         title: "O ESTRATEGISTA (Mente Fria)",
         poder: "Você tem uma inteligência lógica afiada. Enquanto os outros se apavoram, você consegue manter a clareza e achar a solução certeira.",
         tendencia: "Sua mente é tão analítica que às vezes você pensa demais antes de sentir. Seu cérebro é um motor de alta precisão.",
         conselho: "Confie mais na sua intuição. Nem tudo precisa de uma explicação para dar certo.",
-        image: "resultado-estrategico.jpg"
+        image: "./resultado-estrategico.jpg"
       },
       B: {
         title: "O INTENSIVO (Foco e Ritmo)",
         poder: "Você absorve muita informação rápida e tem uma mente elétrica. Sua capacidade de se conectar com novidades é única.",
         tendencia: "Você gosta de manter sua mente em movimento contínuo para aproveitar o máximo da vida e do seu tempo.",
         conselho: "Crie pequenos momentos diários de silêncio para recarregar suas energias ao máximo.",
-        image: "resultado-intensivo.jpg"
+        image: "./resultado-intensivo.jpg"
       },
       C: {
         title: "O ARQUITETO (Visão de Futuro)",
         poder: "Você enxerga o cenário completo antes de todo mundo. Sua capacidade de planejar e proteger o que importa é incomparável.",
         tendencia: "Seu padrão de excelência é alto. Você se cobra para entregar sempre a melhor versão possível em tudo que faz.",
         conselho: "Celebre as pequenas vitórias pelo caminho, sem esperar apenas o resultado final.",
-        image: "resultado-arquiteto.jpg"
+        image: "./resultado-arquiteto.jpg"
       },
       D: {
         title: "O OBSERVADOR (Visão Profunda)",
         poder: "Você tem uma percepção humana raríssima. Consegue ler pessoas, ambientes e detalhes que quase ninguém nota.",
         tendencia: "Sua lucidez é enorme. Você prefere entender todo o mapa antes de dar o seu próximo grande salto.",
         conselho: "Transforme a sua grande clareza em ação imediata. O mundo precisa das suas ideias fora do papel.",
-        image: "resultado-observador.jpg"
+        image: "./resultado-observador.jpg"
       }
     };
 
@@ -451,7 +452,13 @@
       document.getElementById('res-tendencia').innerText = finalArchetype.tendencia;
       document.getElementById('res-conselho').innerText = finalArchetype.conselho;
       
-      document.getElementById('result-card-img').src = finalArchetype.image;
+      const imgElement = document.getElementById('result-card-img');
+      imgElement.src = finalArchetype.image;
+
+      // Mecanismo de fallback caso o ./ falhe: tenta buscar direto pelo nome do arquivo na raiz
+      imgElement.onerror = function() {
+        this.src = finalArchetype.image.replace('./', '');
+      };
     }
 
     async function shareCard() {
