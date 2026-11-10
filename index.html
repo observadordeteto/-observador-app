@@ -335,35 +335,34 @@
       { text: "Tenho uma forte capacidade de observar os outros e entender o ambiente ao redor.", type: "D" }
     ];
 
-    // Endereçamento absoluto blindado para o GitHub Pages na pasta /app/
     const archetypes = {
       A: {
         title: "O ESTRATEGISTA (Mente Fria)",
         poder: "Você tem uma inteligência lógica afiada. Enquanto os outros se apavoram, você consegue manter a clareza e achar a solução certeira.",
         tendencia: "Sua mente é tão analítica que às vezes você pensa demais antes de sentir. Seu cérebro é um motor de alta precisão.",
         conselho: "Confie mais na sua intuição. Nem tudo precisa de uma explicação para dar certo.",
-        image: "https://observadordeteto.github.io/app/resultado-estrategico.jpg"
+        image: "https://raw.githubusercontent.com/observadordeteto/app/refs/heads/main/%E2%80%8Bresultado-estrategico.jpg"
       },
       B: {
         title: "O INTENSIVO (Foco e Ritmo)",
         poder: "Você absorve muita informação rápida e tem uma mente elétrica. Sua capacidade de se conectar com novidades é única.",
         tendencia: "Você gosta de manter sua mente em movimento contínuo para aproveitar o máximo da vida e do seu tempo.",
         conselho: "Crie pequenos momentos diários de silêncio para recarregar suas energias ao máximo.",
-        image: "https://observadordeteto.github.io/app/resultado-intensivo.jpg"
+        image: "https://raw.githubusercontent.com/observadordeteto/app/refs/heads/main/%E2%80%8Bresultado-intensivo.jpg"
       },
       C: {
         title: "O ARQUITETO (Visão de Futuro)",
         poder: "Você enxerga o cenário completo antes de todo mundo. Sua capacidade de planejar e proteger o que importa é incomparável.",
         tendencia: "Seu padrão de excelência é alto. Você se cobra para entregar sempre a melhor versão possível em tudo que faz.",
         conselho: "Celebre as pequenas vitórias pelo caminho, sem esperar apenas o resultado final.",
-        image: "https://observadordeteto.github.io/app/resultado-arquiteto.jpg"
+        image: "https://raw.githubusercontent.com/observadordeteto/app/refs/heads/main/%E2%80%8Bresultado-arquiteto.jpg"
       },
       D: {
         title: "O OBSERVADOR (Visão Profunda)",
         poder: "Você tem uma percepção humana raríssima. Consegue ler pessoas, ambientes e detalhes que quase ninguém nota.",
         tendencia: "Sua lucidez é enorme. Você prefere entender todo o mapa antes de dar o seu próximo grande salto.",
         conselho: "Transforme a sua grande clareza em ação imediata. O mundo precisa das suas ideias fora do papel.",
-        image: "https://observadordeteto.github.io/app/resultado-observador.jpg"
+        image: "https://raw.githubusercontent.com/observadordeteto/app/refs/heads/main/%E2%80%8Bresultado-observador.jpg"
       }
     };
 
@@ -444,48 +443,4 @@
         }
       }
 
-      finalArchetypeKey = winner;
-      const finalArchetype = archetypes[winner];
-      
-      document.getElementById('res-title').innerText = finalArchetype.title;
-      document.getElementById('res-poder').innerText = finalArchetype.poder;
-      document.getElementById('res-tendencia').innerText = finalArchetype.tendencia;
-      document.getElementById('res-conselho').innerText = finalArchetype.conselho;
-      
-      const imgElement = document.getElementById('result-card-img');
-      imgElement.src = finalArchetype.image;
-    }
-
-    async function shareCard() {
-      const finalArchetype = archetypes[finalArchetypeKey];
-      if (!finalArchetype) return;
-
-      try {
-        const response = await fetch(finalArchetype.image);
-        const blob = await response.blob();
-        const file = new File([blob], `${finalArchetypeKey}.jpg`, { type: blob.type });
-
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: 'Meu Perfil — O Espelho do Teto',
-            text: 'Descubra o seu perfil em @observadordeteto'
-          });
-          return;
-        }
-      } catch (err) {
-        console.log('Share nativo por arquivo indisponível.');
-      }
-
-      const link = document.createElement('a');
-      link.href = finalArchetype.image;
-      link.target = '_blank';
-      link.download = 'meu-perfil-espelho.jpg';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      alert('Card pronto! Pressione a imagem para salvá-la e postar nos seus Stories.');
-    }
-  </script>
-</body>
-</html>
+      final
