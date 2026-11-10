@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>O Espelho do Teto — Diagnóstico</title>
   
-  <!-- Meta Tags para Redes Sociais (WhatsApp, Instagram, Telegram) -->
+  <!-- Meta Tags para Redes Sociais -->
   <meta property="og:title" content="O Espelho do Teto — Diagnóstico Comportamental">
   <meta property="og:description" content="Descubra o perfil secreto da sua mente e seu padrão comportamental.">
   <meta property="og:image" content="https://observadordeteto.github.io/-observador-app/capa.png">
@@ -77,20 +77,13 @@
       line-height: 1.5;
     }
 
-    /* Animação entre as perguntas */
     .fade-anim {
       animation: slideFadeIn 0.35s ease forwards;
     }
 
     @keyframes slideFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .intro-screen p {
@@ -244,7 +237,6 @@
       line-height: 1.55;
     }
 
-    /* Estilo para a imagem do Card na tela de resultado */
     .result-image-container {
       width: 100%;
       max-width: 320px;
@@ -298,7 +290,6 @@
     <!-- Tela de Resultado -->
     <div class="result-card" id="result-screen">
       
-      <!-- Card Visual Personalizado Exibido na Tela -->
       <div class="result-image-container">
         <img id="result-card-img" src="" alt="Seu Card de Arquétipo">
       </div>
@@ -341,35 +332,35 @@
       { text: "Tenho uma forte capacidade de observar os outros e entender o ambiente ao redor.", type: "D" }
     ];
 
-    // Mapeamento dos arquétipos incluindo a imagem exata salva no GitHub
+    // URLs absolutas corrigidas para o GitHub Pages do repositório -observador-app
     const archetypes = {
       A: {
         title: "O ESTRATEGISTA (Mente Fria)",
         poder: "Você tem uma inteligência lógica afiada. Enquanto os outros se apavoram, você consegue manter a clareza e achar a solução certeira.",
         tendencia: "Sua mente é tão analítica que às vezes você pensa demais antes de sentir. Seu cérebro é um motor de alta precisão.",
         conselho: "Confie mais na sua intuição. Nem tudo precisa de uma explicação para dar certo.",
-        image: "resultado-estrategico.jpg"
+        image: "https://observadordeteto.github.io/-observador-app/resultado-estrategico.jpg"
       },
       B: {
         title: "O INTENSIVO (Foco e Ritmo)",
         poder: "Você absorve muita informação rápida e tem uma mente elétrica. Sua capacidade de se conectar com novidades é única.",
         tendencia: "Você gosta de manter sua mente em movimento contínuo para aproveitar o máximo da vida e do seu tempo.",
         conselho: "Crie pequenos momentos diários de silêncio para recarregar suas energias ao máximo.",
-        image: "resultado-intensivo.jpg"
+        image: "https://observadordeteto.github.io/-observador-app/resultado-intensivo.jpg"
       },
       C: {
         title: "O ARQUITETO (Visão de Futuro)",
         poder: "Você enxerga o cenário completo antes de todo mundo. Sua capacidade de planejar e proteger o que importa é incomparável.",
         tendencia: "Seu padrão de excelência é alto. Você se cobra para entregar sempre a melhor versão possível em tudo que faz.",
         conselho: "Celebre as pequenas vitórias pelo caminho, sem esperar apenas o resultado final.",
-        image: "resultado-arquiteto.jpg"
+        image: "https://observadordeteto.github.io/-observador-app/resultado-arquiteto.jpg"
       },
       D: {
         title: "O OBSERVADOR (Visão Profunda)",
         poder: "Você tem uma percepção humana raríssima. Consegue ler pessoas, ambientes e detalhes que quase ninguém nota.",
         tendencia: "Sua lucidez é enorme. Você prefere entender todo o mapa antes de dar o seu próximo grande salto.",
         conselho: "Transforme a sua grande clareza em ação imediata. O mundo precisa das suas ideias fora do papel.",
-        image: "resultado-observador.jpg"
+        image: "https://observadordeteto.github.io/-observador-app/resultado-observador.jpg"
       }
     };
 
@@ -453,23 +444,21 @@
       finalArchetypeKey = winner;
       const finalArchetype = archetypes[winner];
       
-      // Preencher textos
       document.getElementById('res-title').innerText = finalArchetype.title;
       document.getElementById('res-poder').innerText = finalArchetype.poder;
       document.getElementById('res-tendencia').innerText = finalArchetype.tendencia;
       document.getElementById('res-conselho').innerText = finalArchetype.conselho;
       
-      // Inserir a imagem correspondente direto no card visual
       document.getElementById('result-card-img').src = finalArchetype.image;
     }
 
-    // Compartilhamento nativo da imagem pronta do card via Web Share API
+    // Compartilhamento robusto abrindo ou baixando a imagem diretamente para os Stories
     async function shareCard() {
       const finalArchetype = archetypes[finalArchetypeKey];
       if (!finalArchetype) return;
 
       try {
-        const response = await fetch(finalArchetype.image);
+        const response = await fetch(finalArchetype.image, { mode: 'cors' });
         const blob = await response.blob();
         const file = new File([blob], `${finalArchetypeKey}.jpg`, { type: blob.type });
 
@@ -479,27 +468,24 @@
             title: 'Meu Perfil — O Espelho do Teto',
             text: 'Descubra o seu perfil em @observadordeteto'
           });
-        } else if (navigator.share) {
-          await navigator.share({
-            title: 'Meu Perfil — O Espelho do Teto',
-            text: 'Descubra o seu perfil em @observadordeteto',
-            url: window.location.href
-          });
         } else {
-          downloadImageFallback(finalArchetype.image);
+          fallbackDownload(finalArchetype.image);
         }
       } catch (error) {
-        console.log('Erro ao compartilhar arquivo:', error);
-        downloadImageFallback(finalArchetype.image);
+        console.log('Erro no share nativo:', error);
+        fallbackDownload(finalArchetype.image);
       }
     }
 
-    function downloadImageFallback(imageSrc) {
+    function fallbackDownload(imgUrl) {
       const link = document.createElement('a');
+      link.href = imgUrl;
+      link.target = '_blank';
       link.download = 'meu-perfil-espelho.jpg';
-      link.href = imageSrc;
+      document.body.appendChild(link);
       link.click();
-      alert('Card pronto! Verifique seus downloads ou pressione a imagem na tela para salvá-la nos Stories.');
+      document.body.removeChild(link);
+      alert('Card aberto! Pressione a imagem para salvar e postar nos seus Stories.');
     }
   </script>
 </body>
