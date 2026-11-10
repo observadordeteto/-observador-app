@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>O Espelho do Teto — Diagnóstico</title>
   
-  <!-- Meta tags de compartilhamento (Gera a imagem e o resumo no WhatsApp) -->
-  <meta property="og:title" content="O Espelho do Teto — Diagnóstico Psicológico">
-  <meta property="og:description" content="Descubra qual mecanismo automático a sua mente usa para fugir da realidade.">
-  <meta property="og:image" content="https://observadordeteto.github.io/fundo.jpg">
-  <meta property="og:url" content="https://observadordeteto.github.io/">
+  <!-- Meta Tags para Redes Sociais (WhatsApp, Instagram, Telegram) -->
+  <meta property="og:title" content="O Espelho do Teto — Diagnóstico Comportamental">
+  <meta property="og:description" content="Descubra o perfil secreto da sua mente e seu padrão comportamental.">
+  <meta property="og:image" content="https://observadordeteto.github.io/-observador-app/capa.jpg">
+  <meta property="og:url" content="https://observadordeteto.github.io/-observador-app/">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #07090E;
@@ -58,6 +58,7 @@
       padding: 32px 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.85), 0 0 35px rgba(245, 158, 11, 0.08);
       text-align: center;
+      overflow: hidden;
     }
 
     header h1 {
@@ -76,11 +77,27 @@
       line-height: 1.5;
     }
 
+    /* Animação entre as perguntas */
+    .fade-anim {
+      animation: slideFadeIn 0.35s ease forwards;
+    }
+
+    @keyframes slideFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .intro-screen p {
       font-size: 1.05rem;
       color: var(--text-main);
       line-height: 1.6;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       text-align: left;
     }
 
@@ -94,11 +111,12 @@
       font-weight: 700;
       font-size: 1rem;
       cursor: pointer;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.2s ease, transform 0.1s ease;
     }
 
     .start-btn:hover, .share-btn:hover {
       opacity: 0.9;
+      transform: translateY(-1px);
     }
 
     .quiz-screen, .result-card {
@@ -110,7 +128,7 @@
       height: 6px;
       background: rgba(255,255,255,0.05);
       border-radius: 3px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       overflow: hidden;
     }
 
@@ -124,49 +142,64 @@
     .statement-box {
       font-size: 1.15rem;
       font-weight: 600;
-      line-height: 1.6;
+      line-height: 1.5;
       margin-bottom: 24px;
       color: var(--text-main);
       text-align: center;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .scale-instruction {
       font-size: 0.85rem;
-      color: var(--text-muted);
+      color: var(--amber);
       text-align: center;
       margin-bottom: 16px;
       text-transform: uppercase;
       letter-spacing: 1px;
+      font-weight: 600;
     }
 
     .scale-container {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .scale-btn {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--text-main);
-      padding: 16px;
+      padding: 14px 16px;
       border-radius: 12px;
       text-align: left;
       font-size: 0.95rem;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .scale-btn span {
+    .scale-btn-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .scale-btn-icon {
+      font-size: 1.1rem;
+    }
+
+    .scale-badge {
       background: rgba(245, 158, 11, 0.15);
       color: var(--amber);
       font-weight: 700;
       padding: 4px 10px;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .scale-btn:active, .scale-btn:hover {
@@ -180,7 +213,7 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--amber);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-weight: 600;
     }
 
@@ -188,12 +221,12 @@
       font-family: 'Cinzel', serif;
       font-size: 1.5rem;
       color: #FFF;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       line-height: 1.3;
     }
 
     .result-section {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .result-section h3 {
@@ -205,9 +238,9 @@
     }
 
     .result-section p {
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: var(--text-main);
-      line-height: 1.6;
+      line-height: 1.55;
     }
 
     footer {
@@ -228,14 +261,14 @@
   <div class="container">
     <header>
       <h1>O Espelho do Teto</h1>
-      <p>Ferramenta de Diagnóstico Comportamental</p>
+      <p>Diagnóstico do Perfil Mental</p>
     </header>
 
     <!-- Tela de Introdução -->
     <div class="intro-screen" id="intro-screen">
-      <p>Este teste não mede o que você quer parecer para os outros. Ele mapeia o mecanismo automático que a sua mente usa para fugir da própria realidade quando a pressão aumenta.</p>
-      <p>Responda com sinceridade fria. Sem filtros.</p>
-      <button class="start-btn" onclick="startQuiz()">Iniciar Diagnóstico</button>
+      <p>🧠 <strong>Descubra o padrão da sua mente:</strong> Este teste revela como a sua inteligência reage sob pressão e qual o seu verdadeiro superpoder comportamental.</p>
+      <p>⚡ Responda rápido, de acordo com o seu primeiro impulso.</p>
+      <button class="start-btn" onclick="startQuiz()">Descobrir Meu Perfil</button>
     </div>
 
     <!-- Tela do Quiz -->
@@ -243,32 +276,32 @@
       <div class="progress-bar">
         <div class="progress-fill" id="progress"></div>
       </div>
-      <div class="scale-instruction">Quanto esta frase representa a sua vida?</div>
+      <div class="scale-instruction">Quanto isso combina com você?</div>
       <div class="statement-box" id="statement-text">Carregando...</div>
       <div class="scale-container" id="scale-container"></div>
     </div>
 
     <!-- Tela de Resultado -->
     <div class="result-card" id="result-screen">
-      <span class="result-tag">Mecanismo Revelado</span>
+      <span class="result-tag">Seu Perfil Principal</span>
       <h2 class="result-title" id="res-title"></h2>
       
       <div class="result-section">
-        <h3>O Diagnóstico</h3>
-        <p id="res-diag"></p>
+        <h3>Seu Superpoder</h3>
+        <p id="res-poder"></p>
       </div>
 
       <div class="result-section">
-        <h3>O Espelhamento</h3>
-        <p id="res-espelho"></p>
+        <h3>Sua Tendência Secreta</h3>
+        <p id="res-tendencia"></p>
       </div>
 
       <div class="result-section">
-        <h3>A Convocação</h3>
-        <p id="res-convocacao"></p>
+        <h3>Conselho de Ouro</h3>
+        <p id="res-conselho"></p>
       </div>
 
-      <button class="share-btn" onclick="shareCard()">Baixar / Compartilhar Card nos Stories</button>
+      <button class="share-btn" onclick="shareCard()">✨ Compartilhar Meu Perfil nos Stories</button>
     </div>
 
     <footer>
@@ -279,41 +312,47 @@
   <canvas id="cardCanvas" width="1080" height="1920"></canvas>
 
   <script>
+    // Frases diretas e de fácil compreensão
     const statements = [
-      { text: "Quando a rotina colapsa, eu isolo a emoção e busco uma saída puramente técnica e fria.", type: "A" },
-      { text: "Minha mente busca distração constante (telas ou ruído) para não encarar o silêncio e o vazio.", type: "B" },
-      { text: "Eu me pego planejando e controlando cada micro-detalhe do futuro para tentar me blindar de falhar.", type: "C" },
-      { text: "Eu enxergo com clareza absoluta onde estou errando, mas continuo estático, sem conseguir agir.", type: "D" },
-      { text: "Prefiro transformar minhas angústias em análises lógicas do que ter a coragem de sentir o peso delas.", type: "A" },
-      { text: "Eu sinto exaustão por rodar no piloto automático, mas continuo fugindo de ficar a sós comigo mesmo.", type: "B" },
-      { text: "O meu perfeccionismo e excesso de preparação funcionam como escudos contra o medo de dar errado.", type: "C" },
-      { text: "Eu virei um mero espectador da minha própria estagnação e dos meus padrões destrutivos.", type: "D" }
+      { text: "Quando tudo vira uma bagunça, eu prefiro manter a calma e resolver com lógica.", type: "A" },
+      { text: "Para desacelerar a cabeça, eu prefiro mexer no celular ou ouvir algo.", type: "B" },
+      { text: "Gosto de organizar tudo com antecedência para não ter surpresas chatas.", type: "C" },
+      { text: "Às vezes eu sei exatamente o que preciso fazer, mas acabo adiando o primeiro passo.", type: "D" },
+      { text: "Prefiro pensar muito bem antes de tomar uma decisão emocional.", type: "A" },
+      { text: "No final do dia, sinto que minha mente precisa de um momento total de pausa.", type: "B" },
+      { text: "Sou muito exigente comigo mesmo para garantir que as coisas saiam perfeitas.", type: "C" },
+      { text: "Tenho uma forte capacidade de observar os outros e entender o ambiente ao redor.", type: "D" }
     ];
 
+    // Arquétipos no formato "Horóscopo / Clarividência" (Positivos, atrativos para compartilhar)
     const archetypes = {
       A: {
-        title: "O CIRÚRGICO (A Lâmina)",
-        diag: "Você racionaliza a vida para não precisar senti-la. Transforma angústias em equações lógicas porque tentar entender o motivo de uma dor parece mais seguro do que ter a coragem de ser vulnerável.",
-        espelho: "Analisar o seu problema não é o mesmo que curá-lo. Sua inteligência virou um esconderijo refinado para o medo de perder o controle.",
-        convocacao: "Pare de buscar justificativas lógicas para o que sente. Suporte o peso do momento por dois minutos em silêncio sem tentar explicá-lo."
+        title: "O ESTRATEGISTA (Mente Fria)",
+        poder: "Você tem uma inteligência lógica afiada. Enquanto os outros se apavoram, você consegue manter a clareza e achar a solução certeira.",
+        tendencia: "Sua mente é tão analítica que às vezes você pensa demais antes de sentir. Seu cérebro é um motor de alta precisão.",
+        conselho: "Confie mais na sua intuição. Nem tudo precisa de uma explicação para dar certo.",
+        fraseCard: "Inteligência lógica afiada e capacidade de resolver problemas onde todos vêm caos."
       },
       B: {
-        title: "O ANESTESIADO (O Nevoeiro)",
-        diag: "O seu maior pavor é o silêncio. Você mantém a mente ocupada o tempo todo com telas, ruídos e estímulos rasos para garantir que nunca vai precisar encarar o abismo de estar a sós consigo mesmo.",
-        espelho: "Você não está cansado do mundo; está exausto de rodar o piloto automático para anestesiar a própria presença.",
-        convocacao: "Deixe o celular em outro cômodo hoje. Encare o teto em silêncio absoluto até o sono vir, sem fugir para nenhum estímulo visual."
+        title: "O INTENSIVO (Foco e Ritmo)",
+        poder: "Você absorve muita informação rápida e tem uma mente elétrica. Sua capacidade de se conectar com novidades é única.",
+        tendencia: "Você gosta de manter sua mente em movimento contínuo para aproveitar o máximo da vida e do seu tempo.",
+        conselho: "Crie pequenos momentos diários de silêncio para recarregar suas energias ao máximo.",
+        fraseCard: "Mente elétrica, percepção rápida e alta capacidade de adaptação."
       },
       C: {
-        title: "O ARQUITETO (A Estrutura)",
-        diag: "Sua cabeça vive passos à frente, criando cenários e planos de emergência para coisas que nem aconteceram. Você acredita que, se planejar o suficiente, nada poderá te ferir.",
-        espelho: "O seu perfeccionismo não é busca por excelência; é o seu ego aterrorizado com a falha. O excesso de preparação é uma desculpa elegante para não agir.",
-        convocacao: "Escolha a decisão que você está adiando há meses e dê o primeiro passo hoje de forma imperfeita."
+        title: "O ARQUITETO (Visão de Futuro)",
+        poder: "Você enxerga o cenário completo antes de todo mundo. Sua capacidade de planejar e proteger o que importa é incomparável.",
+        tendencia: "Seu padrão de excelência é alto. Você se cobra para entregar sempre a melhor versão possível em tudo que faz.",
+        conselho: "Celebre as pequenas vitórias pelo caminho, sem esperar apenas o resultado final.",
+        fraseCard: "Visão de longo alcance, alto padrão de excelência e poder de execução."
       },
       D: {
-        title: "O OBSERVADOR (A Testemunha)",
-        diag: "Você enxerga com clareza absoluta onde está errando e entende os seus padrões destrutivos como ninguém. Porém, usa essa lucidez como uma cadeira de balanço.",
-        espelho: "Você virou um espectador da própria existência. Lucidez sem ação não é sabedoria; é só covardia consciente.",
-        convocacao: "Pare de analisar a estagnação. Escolha uma única atitude prática que quebre a sua rotina hoje e execute-a imediatamente."
+        title: "O OBSERVADOR (Visão Profunda)",
+        poder: "Você tem uma percepção humana raríssima. Consegue ler pessoas, ambientes e detalhes que quase ninguém nota.",
+        tendencia: "Sua lucidez é enorme. Você prefere entender todo o mapa antes de dar o seu próximo grande salto.",
+        conselho: "Transforme a sua grande clareza em ação imediata. O mundo precisa das suas ideias fora do papel.",
+        fraseCard: "Percepção refinada, leitura profunda de ambiente e inteligência silenciosa."
       }
     };
 
@@ -323,11 +362,18 @@
 
     function startQuiz() {
       document.getElementById('intro-screen').style.display = 'none';
-      document.getElementById('quiz-screen').style.display = 'block';
+      const quizScreen = document.getElementById('quiz-screen');
+      quizScreen.style.display = 'block';
+      quizScreen.classList.add('fade-anim');
       loadStatement();
     }
 
     function loadStatement() {
+      const quizScreen = document.getElementById('quiz-screen');
+      quizScreen.classList.remove('fade-anim');
+      void quizScreen.offsetWidth; // Força reflow para reiniciar animação
+      quizScreen.classList.add('fade-anim');
+
       const item = statements[currentIdx];
       document.getElementById('statement-text').innerText = `"${item.text}"`;
       
@@ -335,18 +381,24 @@
       container.innerHTML = '';
 
       const scaleOptions = [
-        { score: 5, label: "Descreve exatamente a minha vida" },
-        { score: 4, label: "Acontece com muita frequência" },
-        { score: 3, label: "Às vezes me identifico" },
-        { score: 2, label: "Raramente é assim comigo" },
-        { score: 1, label: "Quase nunca" },
-        { score: 0, label: "Nada a ver comigo" }
+        { score: 5, label: "Totalmente eu", icon: "🔥" },
+        { score: 4, label: "Muitas vezes", icon: "✨" },
+        { score: 3, label: "Às vezes", icon: "⚖️" },
+        { score: 2, label: "Pouco", icon: "🔹" },
+        { score: 1, label: "Quase nada", icon: "⚪" },
+        { score: 0, label: "Nada a ver", icon: "❌" }
       ];
 
       scaleOptions.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'scale-btn';
-        btn.innerHTML = `${opt.label} <span>${opt.score}</span>`;
+        btn.innerHTML = `
+          <div class="scale-btn-left">
+            <span class="scale-btn-icon">${opt.icon}</span>
+            <span>${opt.label}</span>
+          </div>
+          <span class="scale-badge">+${opt.score}</span>
+        `;
         btn.onclick = () => answerStatement(item.type, opt.score);
         container.appendChild(btn);
       });
@@ -370,6 +422,7 @@
       document.getElementById('quiz-screen').style.display = 'none';
       const resultScreen = document.getElementById('result-screen');
       resultScreen.style.display = 'block';
+      resultScreen.classList.add('fade-anim');
 
       let winner = 'A';
       let maxScore = -1;
@@ -382,56 +435,79 @@
 
       finalArchetype = archetypes[winner];
       document.getElementById('res-title').innerText = finalArchetype.title;
-      document.getElementById('res-diag').innerText = finalArchetype.diag;
-      document.getElementById('res-espelho').innerText = finalArchetype.espelho;
-      document.getElementById('res-convocacao').innerText = finalArchetype.convocacao;
+      document.getElementById('res-poder').innerText = finalArchetype.poder;
+      document.getElementById('res-tendencia').innerText = finalArchetype.tendencia;
+      document.getElementById('res-conselho').innerText = finalArchetype.conselho;
     }
 
+    // Gera o Card 9:16 "Estilo Horóscopo / Instagram Stories"
     function shareCard() {
       if (!finalArchetype) return;
 
       const canvas = document.getElementById('cardCanvas');
       const ctx = canvas.getContext('2d');
 
+      // Fundo Escuro Profundo (1080x1920)
       ctx.fillStyle = "#07090E";
       ctx.fillRect(0, 0, 1080, 1920);
 
+      // Moldura Elegante Âmbar
       ctx.strokeStyle = "#F59E0B";
-      ctx.lineWidth = 8;
+      ctx.lineWidth = 6;
       ctx.strokeRect(60, 60, 960, 1800);
 
+      // Topo - Marca
       ctx.fillStyle = "#F59E0B";
-      ctx.font = "bold 42px 'Cinzel', serif";
+      ctx.font = "bold 38px 'Cinzel', serif";
       ctx.textAlign = "center";
-      ctx.fillText("O ESPELHO DO TETO", 540, 160);
+      ctx.fillText("O ESPELHO DO TETO", 540, 180);
 
       ctx.fillStyle = "#94A3B8";
-      ctx.font = "32px 'Inter', sans-serif";
-      ctx.fillText("DIAGNÓSTICO REVELADO", 540, 220);
+      ctx.font = "28px 'Inter', sans-serif";
+      ctx.fillText("DIAGNÓSTICO COMPORTAMENTAL", 540, 240);
 
+      // Selo do Arquétipo
       ctx.fillStyle = "#FFFFFF";
-      ctx.font = "bold 56px 'Cinzel', serif";
-      ctx.fillText(finalArchetype.title, 540, 360);
+      ctx.font = "bold 54px 'Cinzel', serif";
+      ctx.fillText(finalArchetype.title, 540, 420);
 
       ctx.fillStyle = "#F59E0B";
-      ctx.font = "bold 36px 'Inter', sans-serif";
-      ctx.fillText("O ESPELHAMENTO:", 540, 500);
+      ctx.font = "bold 32px 'Inter', sans-serif";
+      ctx.fillText("SEU SUPERPODER:", 540, 560);
+
+      // Frase Validadora (Estilo Horóscopo/Atraente para Stories)
+      ctx.fillStyle = "#F8FAFC";
+      ctx.font = "40px 'Inter', sans-serif";
+      wrapText(ctx, `"${finalArchetype.fraseCard}"`, 540, 640, 820, 58);
+
+      // Caixa de Destaque Inferior
+      ctx.fillStyle = "rgba(245, 158, 11, 0.08)";
+      ctx.fillRect(120, 1200, 840, 300);
+      ctx.strokeStyle = "rgba(245, 158, 11, 0.3)";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(120, 1200, 840, 300);
+
+      ctx.fillStyle = "#F59E0B";
+      ctx.font = "bold 32px 'Inter', sans-serif";
+      ctx.fillText("CONSELHO DE OURO:", 540, 1270);
 
       ctx.fillStyle = "#F8FAFC";
-      ctx.font = "italic 40px 'Inter', sans-serif";
-      wrapText(ctx, `"${finalArchetype.espelho}"`, 540, 580, 840, 56);
+      ctx.font = "34px 'Inter', sans-serif";
+      wrapText(ctx, finalArchetype.conselho, 540, 1340, 780, 48);
 
+      // Rodapé Instagram
       ctx.fillStyle = "#94A3B8";
       ctx.font = "bold 36px 'Inter', sans-serif";
-      ctx.fillText("@observadordeteto", 540, 1780);
+      ctx.fillText("Descubra o seu em: @observadordeteto", 540, 1760);
 
+      // Exportação
       canvas.toBlob(blob => {
-        const file = new File([blob], "espelho-do-teto.png", { type: "image/png" });
+        const file = new File([blob], "meu-perfil-espelho.png", { type: "image/png" });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           navigator.share({
             files: [file],
-            title: 'Meu Diagnóstico — O Espelho do Teto',
-            text: 'Descubra o seu em @observadordeteto'
+            title: 'Meu Perfil — O Espelho do Teto',
+            text: 'Descubra o seu perfil em @observadordeteto'
           }).catch(() => downloadImage(canvas));
         } else {
           downloadImage(canvas);
@@ -441,10 +517,10 @@
 
     function downloadImage(canvas) {
       const link = document.createElement('a');
-      link.download = 'espelho-do-teto.png';
+      link.download = 'meu-perfil-espelho.png';
       link.href = canvas.toDataURL('image/png');
       link.click();
-      alert('Card gerado em alta resolução! Verifique seus downloads e compartilhe nos Stories.');
+      alert('Card gerado em alta resolução! Verifique seus downloads para postar nos Stories.');
     }
 
     function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
